@@ -31,7 +31,12 @@ This is a static site. GitHub Pages can serve it directly from the repository ro
 
 ## Next content decisions
 
-- public contact address
 - whether to name founders/team
 - whether to add a research brief page for lunar dust collection/clearing
 - whether to include original imagery or keep the CSS-rendered abstract lunar visual language
+
+## Public contact
+
+```text
+darkness.she.is@gmail.com
+```
