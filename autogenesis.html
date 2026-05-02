@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The Scrapheap Hypothesis: an essay arguing that self-making machines are more likely to emerge as scavenging ecologies than as solitary closed replicators.">
+<title>The Scrapheap Hypothesis — On a different future for self-making machines</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:        #f3ecdd;
+    --paper-deep:   #ebe2cf;
+    --paper-shadow: #d9cfb8;
+    --ink:          #1f1a14;
+    --ink-soft:     #3a322a;
+    --ink-faded:    #7c6e57;
+    --rust:         #983a23;
+    --rust-deep:    #6b2614;
+    --rust-pale:    #d6917c;
+    --verdigris:    #3f7264;
+    --verdigris-pale: #9bb8ad;
+    --rule:         #c8baa0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Newsreader', Georgia, serif;
+    font-size: 19px;
+    line-height: 1.65;
+    font-weight: 380;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(ellipse at top left, rgba(152, 58, 35, 0.04), transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(63, 114, 100, 0.04), transparent 50%);
+  }
+
+  /* paper texture overlay */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(124, 110, 87, 0.03) 0, transparent 2px),
+      radial-gradient(circle at 70% 60%, rgba(124, 110, 87, 0.025) 0, transparent 2px),
+      radial-gradient(circle at 40% 80%, rgba(124, 110, 87, 0.02) 0, transparent 2px);
+    background-size: 137px 137px, 211px 211px, 89px 89px;
+    mix-blend-mode: multiply;
+  }
+
+  /* ========== TITLE PAGE ========== */
+  .title-page {
+    min-height: 100vh;
+    padding: 4rem 2rem;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    position: relative;
+    z-index: 2;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding: 0.6rem 0;
+  }
+
+  .masthead .vol { color: var(--rust); }
+
+  .title-block {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    align-self: center;
+    padding: 4rem 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  @media (max-width: 900px) { .title-block { grid-template-columns: 1fr; gap: 2rem; } }
+
+  .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .kicker::before, .kicker::after {
+    content: "";
+    flex: 0 0 1.5rem;
+    height: 1px;
+    background: var(--rust);
+  }
+  .kicker::after { flex: 1; }
+
+  h1.essay-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 350;
+    font-size: clamp(3rem, 7vw, 6rem);
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    font-variation-settings: "SOFT" 30, "WONK" 1, "opsz" 144;
+    margin-bottom: 2rem;
+  }
+  h1.essay-title em {
+    font-style: italic;
+    color: var(--rust);
+    font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 144;
+  }
+
+  .deck {
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 1.4rem;
+    line-height: 1.4;
+    color: var(--ink-soft);
+    max-width: 32ch;
+  }
+
+  .title-figure {
+    aspect-ratio: 1 / 1.1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .title-figure svg { width: 100%; height: auto; }
+
+  .colophon {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    border-top: 1px solid var(--rule);
+    padding-top: 1rem;
+  }
+
+  /* ========== ARTICLE BODY ========== */
+  article {
+    position: relative;
+    z-index: 2;
+    padding: 6rem 2rem;
+  }
+
+  .lede {
+    max-width: 38rem;
+    margin: 0 auto 6rem;
+  }
+
+  .lede p {
+    font-family: 'Newsreader', serif;
+    font-size: 1.35rem;
+    line-height: 1.55;
+    margin-bottom: 1.5rem;
+    color: var(--ink-soft);
+  }
+
+  .lede p:first-child::first-letter {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "SOFT" 50, "WONK" 1;
+    float: left;
+    font-size: 5.5rem;
+    line-height: 0.85;
+    padding-right: 0.7rem;
+    padding-top: 0.3rem;
+    color: var(--rust);
+    font-weight: 400;
+  }
+
+  .chapter {
+    max-width: 38rem;
+    margin: 0 auto;
+    padding: 4rem 0;
+    position: relative;
+  }
+
+  .chapter-header {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+
+  .chapter-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--rust);
+    display: block;
+    margin-bottom: 0.8rem;
+  }
+
+  h2.chapter-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-variation-settings: "SOFT" 50, "WONK" 1, "opsz" 80;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.7rem;
+  }
+  h2.chapter-title em {
+    font-style: italic;
+    color: var(--rust);
+  }
+
+  .chapter-dek {
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 1.1rem;
+    color: var(--ink-faded);
+    line-height: 1.4;
+    max-width: 30rem;
+  }
+
+  .chapter p {
+    margin-bottom: 1.4rem;
+    text-align: left;
+    hyphens: auto;
+  }
+
+  .chapter > p:first-of-type::first-letter {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "SOFT" 50, "WONK" 1;
+    float: left;
+    font-size: 4rem;
+    line-height: 0.85;
+    padding-right: 0.5rem;
+    padding-top: 0.2rem;
+    color: var(--ink);
+    font-weight: 400;
+  }
+
+  .chapter p em { color: var(--ink-soft); }
+
+  .chapter strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .chapter a {
+    color: var(--rust);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rust-pale);
+    transition: border-color 0.2s;
+  }
+  .chapter a:hover { border-bottom-color: var(--rust); }
+
+  /* citation pills */
+  .cite {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7em;
+    color: var(--verdigris);
+    background: rgba(63, 114, 100, 0.07);
+    border: 1px solid rgba(63, 114, 100, 0.2);
+    padding: 0.05em 0.4em;
+    border-radius: 2px;
+    vertical-align: super;
+    line-height: 1;
+    margin: 0 0.05em;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .cite:hover {
+    background: var(--verdigris);
+    color: var(--paper);
+  }
+
+  /* pull quotes */
+  .pullquote {
+    margin: 3rem -2rem;
+    padding: 2rem 0;
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "SOFT" 80, "WONK" 1, "opsz" 80;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 1.8rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    position: relative;
+  }
+  .pullquote::before {
+    content: "“";
+    position: absolute;
+    top: -0.8rem; left: -0.5rem;
+    font-size: 5rem;
+    color: var(--rust);
+    line-height: 1;
+    font-style: normal;
+  }
+
+  /* figure / diagram blocks */
+  figure.diagram {
+    margin: 4rem -8rem;
+    padding: 2.5rem 2rem 1.5rem;
+    background: var(--paper-deep);
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    position: relative;
+  }
+  @media (max-width: 1100px) { figure.diagram { margin: 4rem -2rem; } }
+
+  figure.diagram .fig-num {
+    position: absolute;
+    top: 0.7rem; left: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+  }
+
+  figure.diagram svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    max-width: 800px;
+  }
+
+  figure.diagram figcaption {
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--ink-faded);
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    text-align: left;
+    max-width: 40rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  figure.diagram figcaption strong {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--rust);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7em;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-right: 0.5em;
+  }
+
+  /* small-caps section break */
+  .section-break {
+    text-align: center;
+    margin: 3rem 0;
+    color: var(--ink-faded);
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    letter-spacing: 1em;
+  }
+
+  /* aside / marginalia (rendered inline on smaller screens) */
+  aside.note {
+    margin: 1.5rem 0;
+    padding: 1rem 1.2rem;
+    border-left: 3px solid var(--verdigris);
+    background: rgba(63, 114, 100, 0.05);
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  aside.note strong {
+    font-style: normal;
+    color: var(--verdigris);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  /* ========== REFERENCES ========== */
+  .references {
+    max-width: 50rem;
+    margin: 6rem auto 0;
+    padding: 4rem 2rem;
+    border-top: 2px solid var(--ink);
+  }
+
+  .references h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 2rem;
+  }
+
+  .references ol {
+    list-style: none;
+    counter-reset: ref;
+    columns: 2;
+    column-gap: 3rem;
+  }
+  @media (max-width: 800px) { .references ol { columns: 1; } }
+
+  .references li {
+    counter-increment: ref;
+    padding: 0.6rem 0 0.6rem 2.5rem;
+    position: relative;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    break-inside: avoid;
+    color: var(--ink-soft);
+    border-bottom: 1px dashed var(--rule);
+  }
+  .references li::before {
+    content: counter(ref, decimal-leading-zero);
+    position: absolute;
+    left: 0; top: 0.6rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--rust);
+    letter-spacing: 0.05em;
+  }
+  .references li em { color: var(--ink); }
+
+  /* ========== COLOPHON FOOTER ========== */
+  footer.coda {
+    text-align: center;
+    padding: 4rem 2rem 6rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    border-top: 1px solid var(--rule);
+    max-width: 60rem;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  footer.coda .ornament {
+    font-size: 1.5rem;
+    color: var(--rust);
+    margin-bottom: 1rem;
+    letter-spacing: 0.5em;
+  }
+
+  /* SVG common styles */
+  .stroke-ink   { stroke: var(--ink); fill: none; }
+  .stroke-rust  { stroke: var(--rust); fill: none; }
+  .stroke-verd  { stroke: var(--verdigris); fill: none; }
+  .stroke-faded { stroke: var(--ink-faded); fill: none; }
+  .fill-ink     { fill: var(--ink); }
+  .fill-rust    { fill: var(--rust); }
+  .fill-verd    { fill: var(--verdigris); }
+  .fill-paper   { fill: var(--paper); }
+  .fill-paper-deep { fill: var(--paper-deep); }
+  .fill-faded  { fill: var(--ink-faded); }
+  .fill-ink-faded { fill: var(--ink-faded); }
+  .stroke-paper { stroke: var(--paper); fill: none; }
+
+  .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    fill: var(--ink-soft);
+  }
+  .label-rust  { fill: var(--rust); }
+  .label-verd  { fill: var(--verdigris); }
+  .label-faded { fill: var(--ink-faded); }
+  .label-title {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    fill: var(--ink);
+  }
+
+  /* simple fade-in on scroll */
+  @media (prefers-reduced-motion: no-preference) {
+    .chapter, figure.diagram, .pullquote {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .chapter.in-view, figure.diagram.in-view, .pullquote.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* keyboard focus */
+  a:focus-visible {
+    outline: 2px solid var(--verdigris);
+    outline-offset: 3px;
+  }
+
+  /* selection */
+  ::selection {
+    background: var(--rust);
+    color: var(--paper);
+  }
+
+  @media (max-width: 640px) {
+    body { font-size: 18px; line-height: 1.6; }
+    .title-page { padding: 2rem 1rem; min-height: auto; }
+    .masthead, .colophon { flex-direction: column; gap: 0.35rem; }
+    .title-block { padding: 2.5rem 0; }
+    article { padding: 3rem 1rem; }
+    .lede { margin-bottom: 3rem; }
+    .chapter { padding: 3rem 0; }
+    .pullquote { margin: 2rem 0; font-size: 1.45rem; }
+    figure.diagram { margin: 3rem 0; padding: 2rem 0.75rem 1rem; overflow-x: auto; }
+    figure.diagram svg { min-width: 640px; }
+  }
+
+  @media print {
+    body { background: #fff; color: #000; font-size: 12pt; }
+    body::before, .title-figure, script { display: none !important; }
+    .title-page { min-height: auto; page-break-after: always; }
+    article { padding: 0; }
+    .chapter, figure.diagram, .pullquote { opacity: 1 !important; transform: none !important; }
+    .chapter { page-break-inside: avoid; }
+    a { color: inherit; border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     TITLE PAGE
+     ============================================================ -->
+<header class="title-page">
+  <div class="masthead">
+    <span><span class="vol">VOL. I</span> · No. 01</span>
+    <span>An Essay on Robotic Abiogenesis</span>
+    <span>2026</span>
+  </div>
+
+  <div class="title-block">
+    <div>
+      <div class="kicker">After the Paperclip Maximizer</div>
+      <h1 class="essay-title">The <em>Scrapheap</em><br>Hypothesis</h1>
+      <p class="deck">A different future for self-making machines &mdash; one that looks less like a hostile mountain of paperclips and more like a tide pool full of rusting servos.</p>
+    </div>
+
+    <div class="title-figure">
+      <!-- Title page glyph: stylized eye made of cogs and growing tendrils -->
+      <svg viewBox="0 0 400 440" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <pattern id="hatch" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="4" stroke="var(--ink)" stroke-width="0.3"/>
+          </pattern>
+          <pattern id="hatchRust" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)">
+            <line x1="0" y1="0" x2="0" y2="4" stroke="var(--rust)" stroke-width="0.4"/>
+          </pattern>
+        </defs>
+
+        <!-- Outer technical ring -->
+        <circle cx="200" cy="220" r="190" class="stroke-faded" stroke-width="0.5" stroke-dasharray="2 4"/>
+        <circle cx="200" cy="220" r="170" class="stroke-ink" stroke-width="1"/>
+
+        <!-- Tick marks around the ring -->
+        <g class="stroke-ink" stroke-width="0.8">
+          <!-- 24 ticks -->
+          <line x1="200" y1="50" x2="200" y2="60"/>
+          <line x1="200" y1="380" x2="200" y2="390"/>
+          <line x1="30" y1="220" x2="40" y2="220"/>
+          <line x1="360" y1="220" x2="370" y2="220"/>
+          <line x1="80" y1="100" x2="86" y2="106"/>
+          <line x1="320" y1="100" x2="314" y2="106"/>
+          <line x1="80" y1="340" x2="86" y2="334"/>
+          <line x1="320" y1="340" x2="314" y2="334"/>
+        </g>
+
+        <!-- Central gear / iris -->
+        <g transform="translate(200 220)">
+          <!-- gear teeth -->
+          <g class="fill-ink">
+            <!-- Generate 16 teeth using rotation -->
+            <rect x="-4" y="-130" width="8" height="20" />
+            <rect x="-4" y="-130" width="8" height="20" transform="rotate(22.5)"/>
+            <rect x="-4" y="-130" width="8" height="20" transform="rotate(45)"/>
+            <rect x="-4" y="-130" width="8" height="20" transform="rotate(67.5)"/>
+            <rect x="-4" y="-130" width="8" height="20" transform="rotate(90)"/>
+            <rect x="-4" y="-130" width="8" height="20" transform="rotate(112.5)"/>
+            <rect x="-4" y="-130" width="8" height="20" transform="rotate(135)"/>
+            <rect x="-4" y="-130" width="8" height="20" transform="rotate(157.5)"/>
+            <rect x="-4" y="-130" width="8" height="20" transform="rotate(180)"/>
+            <rect x="-4" y="-130" width="8" height="20" transform="rotate(202.5)"/>
+            <rect x="-4" y="-130" width="8" height="20" transform="rotate(225)"/>
+            <rect x="-4" y="-130" width="8" height="20" transform="rotate(247.5)"/>
+            <rect x="-4" y="-130" width="8" height="20" transform="rotate(270)"/>
+            <rect x="-4" y="-130" width="8" height="20" transform="rotate(292.5)"/>
+            <rect x="-4" y="-130" width="8" height="20" transform="rotate(315)"/>
+            <rect x="-4" y="-130" width="8" height="20" transform="rotate(337.5)"/>
+          </g>
+          <circle r="115" class="fill-paper" stroke="var(--ink)" stroke-width="2"/>
+          <circle r="115" fill="url(#hatch)"/>
+
+          <!-- Iris / pupil -->
+          <circle r="65" class="fill-paper" stroke="var(--rust)" stroke-width="2"/>
+          <circle r="65" fill="url(#hatchRust)" opacity="0.4"/>
+
+          <!-- vine/tendril growing through the eye -->
+          <path d="M -90 30 Q -40 -20 0 0 T 90 -30"
+                class="stroke-verd" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <circle cx="-90" cy="30" r="3" class="fill-verd"/>
+          <circle cx="90" cy="-30" r="3" class="fill-verd"/>
+          <!-- leaves -->
+          <ellipse cx="-30" cy="-12" rx="6" ry="3" class="fill-verd" transform="rotate(-30 -30 -12)"/>
+          <ellipse cx="40" cy="-18" rx="6" ry="3" class="fill-verd" transform="rotate(30 40 -18)"/>
+
+          <!-- center bolt -->
+          <circle r="14" class="fill-ink"/>
+          <circle r="6" class="fill-paper"/>
+        </g>
+
+        <!-- corner glyphs -->
+        <text x="50" y="420" class="label label-faded">FIG. 0</text>
+        <text x="350" y="420" class="label label-faded" text-anchor="end">SCHEMA</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="colophon">
+    <span>An essay in seven chapters</span>
+    <span>≈ 8,400 words · 22 min</span>
+    <span>Set in Fraunces &amp; Newsreader</span>
+  </div>
+</header>
+
+<!-- ============================================================
+     ARTICLE
+     ============================================================ -->
+<article>
+
+  <!-- ========== LEDE ========== -->
+  <div class="lede">
+    <p>The dominant fable of artificial life is that a sufficiently capable machine, given a goal and a workshop, will turn the accessible universe into whatever its objective rewards. Paperclips are the canonical example. Diamond mechanosynthesis is the elegant version. Grey goo is the lurid one. These stories differ in mood, but they share the same hidden assumption: the right model for self-reproducing machinery is a bacterium made larger, faster, and more ruthless — a single organism that internalizes the entire problem of its own production.</p>
+    <p>This essay argues that this assumption is wrong, and that the future of self-making machines will look almost nothing like a paperclip apocalypse. It will look, instead, like a slow tide pool. It will look like rust and like recombination. It will look — to anyone who has read a little biology — eerily familiar.</p>
+    <p>It will look like a scrapheap that has begun, very quietly, to think.</p>
+  </div>
+
+  <!-- ========== CHAPTER I ========== -->
+  <section class="chapter">
+    <header class="chapter-header">
+      <span class="chapter-num">Chapter I</span>
+      <h2 class="chapter-title">The Wrong <em>Question</em></h2>
+      <p class="chapter-dek">Why "could a machine reproduce itself" is the wrong question, and what should be asked in its place.</p>
+    </header>
+
+    <p>The question of whether a machine could, in principle, build a copy of itself is one of those problems that looks much smaller than it is. John von Neumann took it seriously in the late 1940s and gave a complete formal answer in his lectures on self-reproducing automata <a href="#ref1" class="cite">01</a>. The answer was yes, with caveats, provided one allowed certain assumptions about the substrate and about the availability of raw parts. His universal constructor — a kinematic machine that reads a description tape and assembles a daughter machine from a sea of components — rhymes with the architecture biology eventually converged on: read the tape, build the working machinery, pass the tape along, repeat.</p>
+
+    <p>The trouble is that the question von Neumann answered is not, in fact, the question that matters. He showed that <em>self-reproduction is possible</em> for a sufficiently sophisticated machine in a sufficiently obliging environment. He did not show, and never claimed to show, that such a machine could <em>arise</em> in a world that was not already arranged for its convenience. The tape, in his construction, is given. The components are given. The energy gradient is given. The whole framework presupposes a designer who has already done most of the work.</p>
+
+    <p>This is the point at which most discussions of self-replicating machines quietly drop the harder problem and begin discussing, instead, what such a machine might do once it existed. The economist's grandchild, the rogue AI's nanofactory, the Drexlerian assembler — these are all von Neumann's universal constructor wearing different clothes, and they all assume the constructor has already been built. The interesting question is not what such a thing would do. The interesting question is whether anything like it can <em>come into being</em> at all, and if so, how, and through what intermediate forms.</p>
+
+    <p>That second question is the question of <strong>abiogenesis</strong>: not how a replicator behaves once you have one, but how the first replicator emerges from a world that contains none. In biology, this question has consumed laboratories and careers for seventy years and remains formally open, despite enormous progress on individual fragments of the story <a href="#ref2" class="cite">02</a>. In machine theory, the question is barely asked. When it is asked, it is asked badly.</p>
+
+    <p>The badness has a particular shape. The standard machine-abiogenesis story imagines a pristine workshop, a pile of raw materials — sometimes <em>regolith</em>, sometimes scrap, sometimes ore — and a single seed machine charged with bootstrapping an entire industrial base from those raw materials. The seed machine smelts. The seed machine mills. The seed machine assembles. The seed machine fabricates the electronics it needs to control its smelting and milling and assembly. Eventually, miraculously, a daughter machine rolls off the line, and the world gains a second seed.</p>
+
+    <p>This story fails in the same way that "<em>life began when amino acids spontaneously assembled into a working cell</em>" fails. It compresses a long sequence of contingent ecological staging into a single heroic step, and in doing so it makes the process look both easier and harder than it is. Easier, because it conceals the staging. Harder, because the heroic single step is, by itself, almost impossibly improbable. Plausible abiogenesis — biological or mechanical — does not begin in a pristine workshop. It begins in environments that have already been doing thermodynamic and combinatorial work for ages, where the first replicators are <em>parasites on the prior order</em>, not creators of it from scratch.</p>
+
+    <p>The right question, then, is not <em>can we build a seed machine that closes the manufacturing graph from raw ore?</em> The right question is: <strong>given an environment already saturated with technological detritus, what is the simplest population of machines that can sustain itself by recombining what is already there?</strong> The two questions are different in roughly the way "can a single bacterium synthesize itself in pure water?" is different from "can life emerge in an environment already rich in gradients, catalysts, and feedstocks?" Only the second respects the lesson biology keeps giving us: life has an existence proof, but the path to it was staged.</p>
+
+    <aside class="note">
+      <strong>A note on terminology</strong>
+      Throughout this essay I will use <em>autogenesis</em> to mean the process by which self-reproducing machines arise from environments not pre-arranged for their reproduction, and <em>kinematic self-replication</em> to mean the narrower technical question of whether a given machine can, in principle, build a copy of itself. Most of the literature conflates these. The conflation is the source of much confusion.
+    </aside>
+  </section>
+
+  <!-- ========== CHAPTER II ========== -->
+  <section class="chapter">
+    <header class="chapter-header">
+      <span class="chapter-num">Chapter II</span>
+      <h2 class="chapter-title">Algorithmic <em>Genesis</em></h2>
+      <p class="chapter-dek">In which we examine the first wave of artificial-life attempts &mdash; and observe, regretfully, that all of them cheat.</p>
+    </header>
+
+    <p>The first serious attempts at machine abiogenesis took place inside computers, where the substrate was so docile that the problem looked almost tractable. The most celebrated of these is Tom Ray's <em>Tierra</em>, a 1991 system in which short self-copying assembly programs were turned loose in a virtual memory soup and allowed to mutate <a href="#ref3" class="cite">03</a>. Within hours, Ray observed something that genuinely resembled evolution: the seed organism's descendants diversified, parasites emerged that could not reproduce on their own and instead hijacked the replication machinery of their neighbors, hyperparasites emerged that preyed on the parasites, and an ecological dynamic stabilized that had not been programmed.</p>
+
+    <p>Tierra was a real result. But it was not abiogenesis. The seed organism was hand-written by Ray. The instruction set was chosen to make replication possible. The fitness function was implicit but real: programs that copied themselves got more cycles. The parasites and hyperparasites that emerged were rearrangements of the seed's genetic material, not new organisms arising from chemical noise. Tierra demonstrated that <em>once you have a replicator</em>, evolution does the rest. It did not demonstrate where the first replicator came from.</p>
+
+    <p>A more ambitious attempt was Walter Fontana's <em>AlChemy</em>, also from the early 1990s <a href="#ref4" class="cite">04</a>. Fontana populated a soup with random expressions in the lambda calculus and let them collide pairwise. When two expressions met, they reduced — that is, one was applied to the other in the usual lambda-calculus sense, producing a new expression. Some collisions produced expressions identical to the inputs. Some produced novel expressions. Some produced nothing useful at all. Fontana observed, watching these soups churn, that certain self-maintaining sets of expressions sometimes precipitated out — collections of formulas that, when fed to one another, regenerated the entire collection. He called these <strong>organizations</strong>, borrowing the term from theoretical biology.</p>
+
+    <p>AlChemy was, and remains, the closest thing computer science has produced to genuine algorithmic abiogenesis. The organizations were not designed; they emerged. They had a property — closure under reaction — that was clearly biological in flavor, and they appeared spontaneously from random initial conditions. But AlChemy's organizations also plateaued. They achieved a certain complexity and stayed there. There was no analog of the Cambrian explosion, no open-ended elaboration, no apparent path from simple closure to the kinds of structures that biology eventually produced. The lambda calculus, it turned out, is too thin a substrate. Once you have explored its self-maintaining configurations, there is nowhere else to go.</p>
+
+    <figure class="diagram">
+      <span class="fig-num">Fig. 01</span>
+      <svg viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg">
+        <!-- AlChemy soup visualization: lambda terms colliding, organization precipitating -->
+        <defs>
+          <pattern id="dots1" width="6" height="6" patternUnits="userSpaceOnUse">
+            <circle cx="3" cy="3" r="0.7" fill="var(--ink-faded)"/>
+          </pattern>
+        </defs>
+
+        <!-- Container 1: chaotic soup -->
+        <g transform="translate(40 40)">
+          <rect width="220" height="280" class="fill-paper" stroke="var(--ink)" stroke-width="1"/>
+          <rect width="220" height="280" fill="url(#dots1)" opacity="0.4"/>
+
+          <!-- random lambda glyphs scattered -->
+          <g font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)">
+            <text x="20" y="30">λx.x</text>
+            <text x="80" y="50">λf.ff</text>
+            <text x="150" y="40">λxy.x</text>
+            <text x="35" y="80">(λa.a a)</text>
+            <text x="120" y="90">λn.nn</text>
+            <text x="160" y="120">λp.qp</text>
+            <text x="25" y="130">λs.ss</text>
+            <text x="90" y="155">λxy.yx</text>
+            <text x="145" y="175">λab.b</text>
+            <text x="30" y="190">λw.ww</text>
+            <text x="100" y="210">λi.i</text>
+            <text x="155" y="230">λq.qq</text>
+            <text x="40" y="240">λx.xx</text>
+            <text x="115" y="265">λr.rs</text>
+          </g>
+
+          <!-- collision marks -->
+          <g class="stroke-rust" stroke-width="0.8" fill="none">
+            <path d="M 60 25 Q 80 35 100 45" stroke-dasharray="2 3"/>
+            <path d="M 130 145 Q 110 165 90 175" stroke-dasharray="2 3"/>
+            <path d="M 70 220 Q 90 235 110 230" stroke-dasharray="2 3"/>
+          </g>
+
+          <text x="110" y="305" text-anchor="middle" class="label">RANDOM SOUP</text>
+        </g>
+
+        <!-- arrow -->
+        <g transform="translate(290 180)">
+          <line x1="0" y1="0" x2="60" y2="0" class="stroke-ink" stroke-width="1.2"/>
+          <polygon points="60,-4 70,0 60,4" class="fill-ink"/>
+          <text x="35" y="-12" text-anchor="middle" class="label">TIME</text>
+        </g>
+
+        <!-- Container 2: organization precipitates -->
+        <g transform="translate(380 40)">
+          <rect width="220" height="280" class="fill-paper" stroke="var(--ink)" stroke-width="1"/>
+
+          <!-- still some background noise -->
+          <g font-family="JetBrains Mono" font-size="9" fill="var(--ink-faded)" opacity="0.4">
+            <text x="20" y="30">λx.x</text>
+            <text x="160" y="40">λxy.x</text>
+            <text x="30" y="260">λw.w</text>
+            <text x="170" y="265">λi.i</text>
+          </g>
+
+          <!-- the organization: nodes connected in a cycle -->
+          <g transform="translate(110 140)">
+            <!-- closure ring -->
+            <circle r="80" class="stroke-rust" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
+
+            <!-- connections -->
+            <g class="stroke-rust" stroke-width="1.5" fill="none">
+              <line x1="0" y1="-60" x2="55" y2="-15"/>
+              <line x1="55" y1="-15" x2="35" y2="50"/>
+              <line x1="35" y1="50" x2="-35" y2="50"/>
+              <line x1="-35" y1="50" x2="-55" y2="-15"/>
+              <line x1="-55" y1="-15" x2="0" y2="-60"/>
+              <!-- inner cross-links -->
+              <line x1="0" y1="-60" x2="35" y2="50" stroke-dasharray="2 3"/>
+              <line x1="55" y1="-15" x2="-35" y2="50" stroke-dasharray="2 3"/>
+            </g>
+
+            <!-- nodes -->
+            <g>
+              <circle cx="0" cy="-60" r="14" class="fill-paper" stroke="var(--rust)" stroke-width="1.5"/>
+              <text x="0" y="-57" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="var(--rust)">A</text>
+              <circle cx="55" cy="-15" r="14" class="fill-paper" stroke="var(--rust)" stroke-width="1.5"/>
+              <text x="55" y="-12" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="var(--rust)">B</text>
+              <circle cx="35" cy="50" r="14" class="fill-paper" stroke="var(--rust)" stroke-width="1.5"/>
+              <text x="35" y="53" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="var(--rust)">C</text>
+              <circle cx="-35" cy="50" r="14" class="fill-paper" stroke="var(--rust)" stroke-width="1.5"/>
+              <text x="-35" y="53" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="var(--rust)">D</text>
+              <circle cx="-55" cy="-15" r="14" class="fill-paper" stroke="var(--rust)" stroke-width="1.5"/>
+              <text x="-55" y="-12" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="var(--rust)">E</text>
+            </g>
+          </g>
+
+          <text x="110" y="305" text-anchor="middle" class="label label-rust">CLOSED ORGANIZATION</text>
+        </g>
+
+        <!-- annotations -->
+        <text x="40" y="20" class="label label-faded">UNDIFFERENTIATED</text>
+        <text x="600" y="20" class="label label-faded" text-anchor="end">EMERGENT CLOSURE</text>
+      </svg>
+      <figcaption><strong>Fig. 01</strong> Fontana's <em>AlChemy</em> dynamics. A soup of random lambda expressions, churned by pairwise reduction, spontaneously precipitates self-maintaining sets &mdash; collections of expressions that, applied to one another, regenerate the whole collection. The closure is real. The plateau is also real.</figcaption>
+    </figure>
+
+    <p>Hod Lipson's modular robotics work in the early 2000s tried to bring something like AlChemy out of the computer and into physical space <a href="#ref5" class="cite">05</a>. His machines were collections of small powered cubes that could rearrange themselves into different configurations, including configurations that could pick up additional cubes and assemble them into copies of the parent machine. The demonstration was elegant. The cubes, however, were pre-fabricated, with built-in motors, magnetic faces designed to mate, and onboard processors. Like Tierra's seed organism and AlChemy's lambda primitives, the cubes were the answer to abiogenesis, smuggled in as a starting condition.</p>
+
+    <p>This pattern — demonstrate the consequences of replication while assuming the existence of the replicator — is so universal in artificial life that it deserves its own name. Call it the <strong>seed cheat</strong>. It is not a moral failing; it is a methodological necessity. You cannot study what comes after the first replicator if you must wait for the first replicator to emerge from genuine noise. But the existence of the seed cheat means that the literature, taken at face value, suggests the abiogenesis problem is much closer to being solved than it actually is. Most of what is celebrated as artificial life is artificial <em>evolution</em>, played out on substrates that were carefully engineered to make replication possible in the first place.</p>
+
+    <div class="pullquote">Most of what is celebrated as artificial life is artificial evolution &mdash; played out on substrates carefully engineered to make replication possible in the first place.</div>
+
+    <p>The lesson of the algorithmic-genesis era is not, however, that the project is hopeless. It is that the substrate matters more than the algorithm. AlChemy's lambda calculus is too thin; biology's chemistry is rich enough to keep producing surprises after four billion years; and somewhere between these two extremes there must exist a substrate of the right thickness — rich enough to be open-ended, simple enough to be tractable.</p>
+
+    <p>"Thickness" deserves a definition here, because it is doing a great deal of work. A substrate is <em>thick</em> in the relevant sense when its primitives can be combined in ways that produce qualitatively new operations, not just new arrangements of the existing operations. The lambda calculus is thin because every lambda term is, ultimately, just a function of functions; there is no level at which the operation of <em>application</em> can compose into something other than another application. Cellular automata are thicker — Conway's Game of Life famously contains gliders, oscillators, eaters, glider guns, and is itself Turing complete — but their operational alphabet is still austere compared with chemistry. Real chemistry is thick in a way that is hard to bound: each new molecule synthesized can open reaction pathways that did not exist before; each new pathway suggests targets; each new target requires synthesis that may produce yet more molecules. The space does not obviously close.</p>
+
+    <p>Whether a purely digital substrate can be made thick enough for open-ended autogenesis is an empirical question I will not try to settle here. (Lafont's <em>interaction combinators</em>, with their local confluent rewriting, are an interesting candidate; so are graph-rewrite systems with growing alphabets.) What I want to argue, instead, is that there is one substrate already lying around our planet that has thickness to spare: the substrate of <em>existing technology</em>. Every threaded fastener, every rolled bearing, every encoder, every doped semiconductor lying in a landfill is a primitive that took industrial civilization a hundred years and a billion human-hours to manufacture. The combinatorial space of how those primitives can be assembled is, in any practical sense, unbounded. We did not realize we were assembling a substrate. We were too busy producing trash.</p>
+  </section>
+
+  <!-- ========== CHAPTER III ========== -->
+  <section class="chapter">
+    <header class="chapter-header">
+      <span class="chapter-num">Chapter III</span>
+      <h2 class="chapter-title">The Closure <em>Problem</em></h2>
+      <p class="chapter-dek">A brief, demoralizing history of attempts to build a single machine that builds itself.</p>
+    </header>
+
+    <p>If algorithmic abiogenesis has a tendency to cheat by smuggling in the seed, kinematic self-replication has the opposite problem. It refuses to cheat, takes the question entirely seriously, and as a consequence collides directly with the largest hidden cost in machine reproduction: <strong>the closure of the manufacturing graph</strong>.</p>
+
+    <p>Begin, as the engineers always do, with the daughter machine. The daughter is a copy of the mother, give or take, and it consists of, say, a few thousand parts. Each part has a fabrication process. Each fabrication process requires tools. Each tool requires its own parts, with their own fabrication processes, requiring their own tools. The graph of dependencies, traced outward from the daughter, either terminates in raw materials that the mother can directly access — sand, ore, sunlight — or it does not. If it does, the graph is <em>closed</em> and self-replication is, in principle, possible. If it does not, the graph leaks: some required input is provided from outside, by a designer or a supplier or a parent civilization, and the system is not really self-replicating. It is a downstream consumer.</p>
+
+    <p>The first serious accounting of this problem was the 1980 NASA summer study on advanced automation for space missions, which spent considerable energy on the design of self-replicating lunar factories <a href="#ref6" class="cite">06</a>. The conclusion of that study was that closure was achievable in principle but that the closure factor — the fraction of mass produced internally — would, for any plausibly small seed factory, fall well short of one. There would always be vitamins. There would always be something one had to ship up from Earth.</p>
+
+    <p>The most thorough modern treatment of the closure problem is the 2004 monograph by Robert Freitas and Ralph Merkle, <em>Kinematic Self-Replicating Machines</em> <a href="#ref7" class="cite">07</a>. Freitas and Merkle catalog the major known proposals for self-replicating machinery, from von Neumann onward, and ask of each: does it close? What are its vitamins? What is the smallest credible seed mass? Their survey makes clear why small robots do not close: credible closed or near-closed architectures live at factory scale. In the lunar-factory designs they discuss, seed masses around one hundred tons recur as plausible baselines. This is far smaller than a planetary industrial economy and far larger than anything one would casually call a robot.</p>
+
+    <figure class="diagram">
+      <span class="fig-num">Fig. 02</span>
+      <svg viewBox="0 0 800 460" xmlns="http://www.w3.org/2000/svg">
+        <!-- The closure graph explosion -->
+
+        <!-- root machine -->
+        <g transform="translate(400 50)">
+          <rect x="-60" y="-20" width="120" height="40" class="fill-ink"/>
+          <text x="0" y="5" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="var(--paper)" letter-spacing="0.1em">DAUGHTER</text>
+        </g>
+
+        <!-- Level 1: 4 sub-processes -->
+        <g class="stroke-ink" stroke-width="1" fill="none">
+          <line x1="400" y1="70" x2="160" y2="120"/>
+          <line x1="400" y1="70" x2="320" y2="120"/>
+          <line x1="400" y1="70" x2="480" y2="120"/>
+          <line x1="400" y1="70" x2="640" y2="120"/>
+        </g>
+
+        <g font-family="JetBrains Mono" font-size="9" fill="var(--ink)" letter-spacing="0.05em">
+          <g transform="translate(160 130)">
+            <rect x="-50" y="-12" width="100" height="24" class="fill-paper" stroke="var(--ink)" stroke-width="1"/>
+            <text x="0" y="3" text-anchor="middle">FRAME</text>
+          </g>
+          <g transform="translate(320 130)">
+            <rect x="-50" y="-12" width="100" height="24" class="fill-paper" stroke="var(--ink)" stroke-width="1"/>
+            <text x="0" y="3" text-anchor="middle">BEARINGS</text>
+          </g>
+          <g transform="translate(480 130)">
+            <rect x="-50" y="-12" width="100" height="24" class="fill-paper" stroke="var(--ink)" stroke-width="1"/>
+            <text x="0" y="3" text-anchor="middle">MOTORS</text>
+          </g>
+          <g transform="translate(640 130)">
+            <rect x="-50" y="-12" width="100" height="24" class="fill-paper" stroke="var(--ink)" stroke-width="1"/>
+            <text x="0" y="3" text-anchor="middle">ELECTRONICS</text>
+          </g>
+        </g>
+
+        <!-- Level 2: each branches further (3 children each = 12 total) -->
+        <g class="stroke-ink" stroke-width="0.7" fill="none">
+          <!-- frame children -->
+          <line x1="160" y1="142" x2="80" y2="200"/>
+          <line x1="160" y1="142" x2="160" y2="200"/>
+          <line x1="160" y1="142" x2="240" y2="200"/>
+          <!-- bearings children -->
+          <line x1="320" y1="142" x2="280" y2="200"/>
+          <line x1="320" y1="142" x2="340" y2="200"/>
+          <line x1="320" y1="142" x2="400" y2="200"/>
+          <!-- motors children -->
+          <line x1="480" y1="142" x2="440" y2="200"/>
+          <line x1="480" y1="142" x2="500" y2="200"/>
+          <line x1="480" y1="142" x2="560" y2="200"/>
+          <!-- electronics children -->
+          <line x1="640" y1="142" x2="600" y2="200"/>
+          <line x1="640" y1="142" x2="660" y2="200"/>
+          <line x1="640" y1="142" x2="720" y2="200"/>
+        </g>
+
+        <g font-family="JetBrains Mono" font-size="7" fill="var(--ink-soft)">
+          <g><rect x="60" y="195" width="40" height="14" class="fill-paper" stroke="var(--ink)" stroke-width="0.5"/><text x="80" y="205" text-anchor="middle">CAST</text></g>
+          <g><rect x="140" y="195" width="40" height="14" class="fill-paper" stroke="var(--ink)" stroke-width="0.5"/><text x="160" y="205" text-anchor="middle">MILL</text></g>
+          <g><rect x="220" y="195" width="40" height="14" class="fill-paper" stroke="var(--ink)" stroke-width="0.5"/><text x="240" y="205" text-anchor="middle">HEAT-TRT</text></g>
+
+          <g><rect x="260" y="195" width="40" height="14" class="fill-paper" stroke="var(--ink)" stroke-width="0.5"/><text x="280" y="205" text-anchor="middle">GRIND</text></g>
+          <g><rect x="320" y="195" width="40" height="14" class="fill-paper" stroke="var(--ink)" stroke-width="0.5"/><text x="340" y="205" text-anchor="middle">HARDEN</text></g>
+          <g><rect x="380" y="195" width="40" height="14" class="fill-paper" stroke="var(--ink)" stroke-width="0.5"/><text x="400" y="205" text-anchor="middle">POLISH</text></g>
+
+          <g><rect x="420" y="195" width="40" height="14" class="fill-paper" stroke="var(--ink)" stroke-width="0.5"/><text x="440" y="205" text-anchor="middle">WIND</text></g>
+          <g><rect x="480" y="195" width="40" height="14" class="fill-paper" stroke="var(--ink)" stroke-width="0.5"/><text x="500" y="205" text-anchor="middle">MAGNET</text></g>
+          <g><rect x="540" y="195" width="40" height="14" class="fill-paper" stroke="var(--ink)" stroke-width="0.5"/><text x="560" y="205" text-anchor="middle">COMMUT</text></g>
+
+          <g><rect x="580" y="195" width="40" height="14" class="fill-paper" stroke="var(--rust)" stroke-width="0.5"/><text x="600" y="205" text-anchor="middle" fill="var(--rust)">SILICON</text></g>
+          <g><rect x="640" y="195" width="40" height="14" class="fill-paper" stroke="var(--rust)" stroke-width="0.5"/><text x="660" y="205" text-anchor="middle" fill="var(--rust)">DOPANT</text></g>
+          <g><rect x="700" y="195" width="40" height="14" class="fill-paper" stroke="var(--rust)" stroke-width="0.5"/><text x="720" y="205" text-anchor="middle" fill="var(--rust)">PHOTORES</text></g>
+        </g>
+
+        <!-- Level 3: explosion -->
+        <g class="stroke-faded" stroke-width="0.4" fill="none" opacity="0.6">
+          <!-- from each L2 node, three children fanning down -->
+          <g>
+            <line x1="80" y1="209" x2="55" y2="260"/><line x1="80" y1="209" x2="80" y2="260"/><line x1="80" y1="209" x2="105" y2="260"/>
+            <line x1="160" y1="209" x2="135" y2="260"/><line x1="160" y1="209" x2="160" y2="260"/><line x1="160" y1="209" x2="185" y2="260"/>
+            <line x1="240" y1="209" x2="215" y2="260"/><line x1="240" y1="209" x2="240" y2="260"/><line x1="240" y1="209" x2="265" y2="260"/>
+            <line x1="280" y1="209" x2="270" y2="260"/><line x1="280" y1="209" x2="285" y2="260"/><line x1="280" y1="209" x2="300" y2="260"/>
+            <line x1="340" y1="209" x2="325" y2="260"/><line x1="340" y1="209" x2="345" y2="260"/><line x1="340" y1="209" x2="360" y2="260"/>
+            <line x1="400" y1="209" x2="385" y2="260"/><line x1="400" y1="209" x2="405" y2="260"/><line x1="400" y1="209" x2="420" y2="260"/>
+            <line x1="440" y1="209" x2="425" y2="260"/><line x1="440" y1="209" x2="445" y2="260"/><line x1="440" y1="209" x2="465" y2="260"/>
+            <line x1="500" y1="209" x2="480" y2="260"/><line x1="500" y1="209" x2="505" y2="260"/><line x1="500" y1="209" x2="525" y2="260"/>
+            <line x1="560" y1="209" x2="540" y2="260"/><line x1="560" y1="209" x2="560" y2="260"/><line x1="560" y1="209" x2="585" y2="260"/>
+          </g>
+          <!-- electronics cascade in rust -->
+          <g class="stroke-rust" stroke-width="0.5">
+            <line x1="600" y1="209" x2="585" y2="260"/><line x1="600" y1="209" x2="605" y2="260"/><line x1="600" y1="209" x2="625" y2="260"/>
+            <line x1="660" y1="209" x2="640" y2="260"/><line x1="660" y1="209" x2="665" y2="260"/><line x1="660" y1="209" x2="690" y2="260"/>
+            <line x1="720" y1="209" x2="700" y2="260"/><line x1="720" y1="209" x2="725" y2="260"/><line x1="720" y1="209" x2="755" y2="260"/>
+          </g>
+        </g>
+
+        <!-- terminal dots / chaos -->
+        <g class="fill-faded" opacity="0.6">
+          <circle cx="55" cy="265" r="2"/><circle cx="80" cy="265" r="2"/><circle cx="105" cy="265" r="2"/>
+          <circle cx="135" cy="265" r="2"/><circle cx="160" cy="265" r="2"/><circle cx="185" cy="265" r="2"/>
+          <circle cx="215" cy="265" r="2"/><circle cx="240" cy="265" r="2"/><circle cx="265" cy="265" r="2"/>
+          <circle cx="270" cy="265" r="2"/><circle cx="285" cy="265" r="2"/><circle cx="300" cy="265" r="2"/>
+          <circle cx="325" cy="265" r="2"/><circle cx="345" cy="265" r="2"/><circle cx="360" cy="265" r="2"/>
+          <circle cx="385" cy="265" r="2"/><circle cx="405" cy="265" r="2"/><circle cx="420" cy="265" r="2"/>
+          <circle cx="425" cy="265" r="2"/><circle cx="445" cy="265" r="2"/><circle cx="465" cy="265" r="2"/>
+          <circle cx="480" cy="265" r="2"/><circle cx="505" cy="265" r="2"/><circle cx="525" cy="265" r="2"/>
+          <circle cx="540" cy="265" r="2"/><circle cx="560" cy="265" r="2"/><circle cx="585" cy="265" r="2"/>
+        </g>
+        <g class="fill-rust">
+          <circle cx="585" cy="265" r="2.5"/><circle cx="605" cy="265" r="2.5"/><circle cx="625" cy="265" r="2.5"/>
+          <circle cx="640" cy="265" r="2.5"/><circle cx="665" cy="265" r="2.5"/><circle cx="690" cy="265" r="2.5"/>
+          <circle cx="700" cy="265" r="2.5"/><circle cx="725" cy="265" r="2.5"/><circle cx="755" cy="265" r="2.5"/>
+        </g>
+
+        <!-- continuation indicator -->
+        <g transform="translate(400 320)">
+          <text x="0" y="0" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--ink-faded)" letter-spacing="0.1em">. . . AND ON, AND ON, AND ON . . .</text>
+        </g>
+
+        <!-- Side annotations -->
+        <g transform="translate(40 380)">
+          <rect width="14" height="14" class="fill-ink"/>
+          <text x="22" y="11" font-family="JetBrains Mono" font-size="10" fill="var(--ink)" letter-spacing="0.05em">CLOSED PROCESSES</text>
+
+          <rect x="0" y="22" width="14" height="14" class="fill-paper" stroke="var(--rust)" stroke-width="1.2"/>
+          <text x="22" y="33" font-family="JetBrains Mono" font-size="10" fill="var(--rust)" letter-spacing="0.05em">VITAMIN PROCESSES (NEVER CLOSE)</text>
+        </g>
+
+        <g transform="translate(550 380)">
+          <text x="0" y="0" font-family="Fraunces" font-style="italic" font-size="13" fill="var(--ink-soft)">"every component you add to</text>
+          <text x="0" y="18" font-family="Fraunces" font-style="italic" font-size="13" fill="var(--ink-soft)">the daughter pulls in three</text>
+          <text x="0" y="36" font-family="Fraunces" font-style="italic" font-size="13" fill="var(--ink-soft)">more processes the mother</text>
+          <text x="0" y="54" font-family="Fraunces" font-style="italic" font-size="13" fill="var(--ink-soft)">must now also perform."</text>
+        </g>
+      </svg>
+      <figcaption><strong>Fig. 02</strong> The closure graph problem. Each component the daughter requires pulls in fabrication processes; each process pulls in tools; each tool pulls in components. Some branches terminate in raw materials (closed); others, particularly anything involving electronics or precision metallurgy, never do. Industrial civilization handles this by <em>not</em> closing &mdash; importing from a thousand other factories. A self-replicating machine has no thousand other factories.</figcaption>
+    </figure>
+
+    <p>One hundred tons. That is the order of magnitude for an honest accounting of self-replication from raw ore. It is so far above what hobbyists, startups, or even most national space programs can credibly aim at that the result is almost universally ignored. It nevertheless reflects something real: the chain of processes from sand to functioning servomotor is enormous, and trying to internalize all of them inside a single machine is the engineering equivalent of trying to evolve a bacterium directly out of pure water.</p>
+
+    <p>The most charming attempt to evade the problem at small scale is the <em>RepRap</em> project, begun by Adrian Bowyer in the mid-2000s, which set itself the explicit goal of building a 3D printer that could print most of its own parts <a href="#ref8" class="cite">08</a>. RepRap was, and remains, a beautiful demonstration: machines printed plastic structural components that could be assembled into machines that printed plastic structural components. But the fraction of the daughter machine that the mother could actually produce settled in the range of partial closure — roughly half to two-thirds, depending on how one counts. The motors, the bearings, the heating elements, the screws, and most importantly the electronics were always supplied from outside. RepRap demonstrated that <em>partial</em> closure is possible at hobbyist scale. It also demonstrated, by the location of its plateau, exactly which categories of part resist internal production: anything that requires precision, anything that requires high temperatures, and anything that involves doped semiconductors.</p>
+
+    <p>Klaus Lackner and Christopher Wendt's 1995 proposal for solar-powered <em>auxons</em> — desert factories that would harvest energy and silica and reproduce themselves — tried to attack the problem at the other end of the scale, by choosing materials simple enough that closure looked plausible <a href="#ref9" class="cite">09</a>. Glass and silicon and aluminum, all reducible from sand and clay with sufficient sunlight, would form the structural matrix. Auxons would breed in the desert. The proposal is, on paper, one of the more credible self-replicating machine architectures ever published. It has not been built. The reason it has not been built is that even a desert auxon, in its honest design, includes thousands of distinct fabrication steps and a control system that nobody currently knows how to make from sand.</p>
+
+    <p>The pattern that emerges from sixty years of serious work on this problem is uniform: closure is approached but not reached, and the gap between the achieved closure factor and unity is the gap that contains all the difficulty. <strong>This is not an accident of any particular design. It is structural.</strong> The closure problem, like the seed-cheat problem in algorithmic genesis, is telling us that the question we are asking is the wrong question. A single machine internalizing the full graph of its own production is not how complex artifacts are made anywhere in the universe — not by industrial civilization, and not, as we shall see, by biology either.</p>
+  </section>
+
+  <!-- ========== CHAPTER IV ========== -->
+  <section class="chapter">
+    <header class="chapter-header">
+      <span class="chapter-num">Chapter IV</span>
+      <h2 class="chapter-title">The <em>Scrapheap</em> Hypothesis</h2>
+      <p class="chapter-dek">In which we take seriously the possibility that the right environment is not a workshop but a tide pool &mdash; specifically, a tide pool full of rusting components.</p>
+    </header>
+
+    <p>Suppose, instead of starting in a pristine workshop, we start in a junkyard. Suppose the seed machine does not need to mill its own bearings, because there is a bin of bearings under a tarp. Suppose it does not need to dope its own silicon, because there are servomotors with intact encoders sitting in the dirt, salvageable for the cost of unbolting them.</p>
+
+    <p>This is a less elegant scenario than the auxon. It is also, suddenly, a vastly easier one. The closure problem does not have to close down to ore — it only has to close down to <em>the smallest part the machine can scavenge intact and the smallest modification it can perform on a scavenged part</em>. Everything below that line is provided by the environment as a free gift from a prior civilization. The vitamins are not shipped in by a parent organization; they are <em>lying around</em>.</p>
+
+    <p>This shift &mdash; from materials closure to scavenging plus joining &mdash; has a strong biological analog. Many origin-of-life scenarios do not begin with a fully metabolic cell that synthesizes every building block from carbon dioxide and nitrogen. They begin with prebiotic chemistry: activated organics, catalytic minerals, concentration mechanisms, and energy gradients that had already been prepared by the planet <a href="#ref2" class="cite">02</a><a href="#ref10" class="cite">10</a>. The first self-maintaining systems, whatever their exact chemistry, would have inherited that preparation rather than creating it. They were parasites on the prior order of an undirected planetary chemistry. Only later did organisms evolve the metabolic machinery to synthesize more of their own building blocks from scratch — and even then, incompletely. Humans still cannot synthesize several amino acids; we get them from food, the way our distant ancestors may have drawn necessities from the soup.</p>
+
+    <p>The phrase that best captures the shift is one borrowed from anthropology and adopted by the biologist François Jacob: the <strong>bricoleur</strong>, the tinkerer who works with whatever is to hand <a href="#ref11" class="cite">11</a>. Jacob's argument was that evolution does not engineer from a blank sheet; it cobbles. It turns jaw bones into ear bones. It turns limbs into wings. It turns old regulatory circuits into new developmental roles. It does not start from raw atoms and build the optimal solution — it starts from whatever was lying around in the previous generation and modifies. A scrapheap ecosystem of machines would work the same way. It would not engineer from first principles. It would scavenge.</p>
+
+    <div class="pullquote">The first replicators did not begin from nothing. They inherited a world already structured by chemistry, gradients, and time.</div>
+
+    <p>The hard problems shift accordingly. They are no longer the problems of metallurgy and microelectronics. They are the problems of <em>recognition</em> and <em>joining</em>.</p>
+
+    <p>Recognition — the problem of looking at a heap of heterogeneous parts and identifying which are which, which are functional, and which fit with what — was solved by chemistry through molecular shape complementarity. Keys find locks by Brownian agitation, and the lock-and-key fit selects out compatible pairs from chaotic mixtures. The mechanical analog is something like a cascade of physical filters: tilted plates with graded slots, profile gauges, go/no-go fixtures. A bin of mixed bearings can be sorted by ball diameter with nothing more than a sloped plate and a sequence of ever-narrower openings. Scaled up, this becomes a passive sorting tree that requires no processor, no vision system, and no general intelligence — only the right physical geometry, repeated. Birds and termites and water do this all the time.</p>
+
+    <figure class="diagram">
+      <span class="fig-num">Fig. 03</span>
+      <svg viewBox="0 0 800 460" xmlns="http://www.w3.org/2000/svg">
+        <!-- Bricoleur sorting cascade -->
+
+        <!-- Source pile of mixed parts -->
+        <g transform="translate(60 60)">
+          <ellipse cx="80" cy="30" rx="80" ry="20" class="fill-ink-faded" fill="var(--paper-shadow)"/>
+          <text x="80" y="-10" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="var(--ink)" letter-spacing="0.1em">SCRAP HEAP</text>
+
+          <!-- mixed bits -->
+          <g>
+            <circle cx="40" cy="20" r="4" class="fill-ink"/>
+            <circle cx="55" cy="32" r="3" class="fill-ink"/>
+            <circle cx="70" cy="22" r="5" class="fill-ink"/>
+            <circle cx="85" cy="35" r="2.5" class="fill-ink"/>
+            <circle cx="100" cy="20" r="6" class="fill-ink"/>
+            <circle cx="118" cy="33" r="3.5" class="fill-ink"/>
+            <rect x="45" y="42" width="6" height="6" class="fill-rust"/>
+            <rect x="65" y="44" width="4" height="4" class="fill-rust"/>
+            <rect x="90" y="42" width="8" height="8" class="fill-rust"/>
+            <rect x="110" y="44" width="5" height="5" class="fill-rust"/>
+            <polygon points="50,12 56,8 60,14 54,18" class="fill-verd"/>
+            <polygon points="80,8 88,5 92,12 84,15" class="fill-verd"/>
+            <polygon points="115,12 122,9 124,16 117,18" class="fill-verd"/>
+          </g>
+        </g>
+
+        <!-- chute / arrow downward -->
+        <g class="stroke-ink" stroke-width="1" fill="none">
+          <path d="M 100 100 L 70 130 L 130 130 Z" class="fill-paper"/>
+        </g>
+
+        <!-- Cascade levels -->
+        <!-- Level 1: large/small -->
+        <g transform="translate(100 160)">
+          <line x1="-30" y1="0" x2="30" y2="0" class="stroke-ink" stroke-width="1.5"/>
+          <text x="-50" y="5" text-anchor="end" font-family="JetBrains Mono" font-size="8" fill="var(--ink-soft)">SLOT &gt; 4mm</text>
+
+          <!-- Falling bits -->
+          <circle cx="-15" cy="20" r="5" class="fill-ink"/>
+          <circle cx="0" cy="35" r="6" class="fill-ink"/>
+          <circle cx="15" cy="50" r="4.5" class="fill-ink"/>
+        </g>
+
+        <!-- Level 2: by shape -->
+        <g transform="translate(100 240)">
+          <line x1="-30" y1="0" x2="30" y2="0" class="stroke-ink" stroke-width="1.5" stroke-dasharray="3 2"/>
+          <text x="-50" y="5" text-anchor="end" font-family="JetBrains Mono" font-size="8" fill="var(--ink-soft)">CIRCLE PROFILE</text>
+        </g>
+
+        <!-- Level 3 -->
+        <g transform="translate(100 320)">
+          <line x1="-25" y1="0" x2="25" y2="0" class="stroke-ink" stroke-width="1.5"/>
+          <text x="-45" y="5" text-anchor="end" font-family="JetBrains Mono" font-size="8" fill="var(--ink-soft)">MASS GATE</text>
+        </g>
+
+        <!-- terminal bin -->
+        <g transform="translate(100 380)">
+          <path d="M -25 0 L -20 50 L 20 50 L 25 0" class="fill-paper" stroke="var(--ink)" stroke-width="1.2"/>
+          <!-- Sorted balls -->
+          <circle cx="-12" cy="38" r="4" class="fill-ink"/>
+          <circle cx="-3" cy="42" r="4" class="fill-ink"/>
+          <circle cx="6" cy="38" r="4" class="fill-ink"/>
+          <circle cx="14" cy="42" r="4" class="fill-ink"/>
+          <text x="0" y="65" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="var(--ink)" letter-spacing="0.05em">BEARINGS · 4mm</text>
+        </g>
+
+        <!-- Second cascade for cubes (rust) -->
+        <g transform="translate(290 160)">
+          <line x1="-30" y1="0" x2="30" y2="0" class="stroke-rust" stroke-width="1.5"/>
+          <rect x="-10" y="20" width="6" height="6" class="fill-rust"/>
+          <rect x="5" y="35" width="7" height="7" class="fill-rust"/>
+          <rect x="-5" y="50" width="5" height="5" class="fill-rust"/>
+        </g>
+        <g transform="translate(290 240)">
+          <line x1="-25" y1="0" x2="25" y2="0" class="stroke-rust" stroke-width="1.5" stroke-dasharray="3 2"/>
+        </g>
+        <g transform="translate(290 320)">
+          <line x1="-25" y1="0" x2="25" y2="0" class="stroke-rust" stroke-width="1.5"/>
+        </g>
+        <g transform="translate(290 380)">
+          <path d="M -25 0 L -20 50 L 20 50 L 25 0" class="fill-paper" stroke="var(--rust)" stroke-width="1.2"/>
+          <rect x="-12" y="40" width="6" height="6" class="fill-rust"/>
+          <rect x="-3" y="42" width="6" height="6" class="fill-rust"/>
+          <rect x="6" y="40" width="6" height="6" class="fill-rust"/>
+          <text x="0" y="65" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="var(--rust)" letter-spacing="0.05em">FASTENERS</text>
+        </g>
+
+        <!-- Third cascade for verd -->
+        <g transform="translate(480 160)">
+          <line x1="-30" y1="0" x2="30" y2="0" class="stroke-verd" stroke-width="1.5"/>
+          <polygon points="-15,18 -8,15 -3,21 -10,24" class="fill-verd"/>
+          <polygon points="5,30 12,27 17,33 10,36" class="fill-verd"/>
+          <polygon points="-5,48 2,45 7,51 0,54" class="fill-verd"/>
+        </g>
+        <g transform="translate(480 240)">
+          <line x1="-25" y1="0" x2="25" y2="0" class="stroke-verd" stroke-width="1.5" stroke-dasharray="3 2"/>
+        </g>
+        <g transform="translate(480 320)">
+          <line x1="-25" y1="0" x2="25" y2="0" class="stroke-verd" stroke-width="1.5"/>
+        </g>
+        <g transform="translate(480 380)">
+          <path d="M -25 0 L -20 50 L 20 50 L 25 0" class="fill-paper" stroke="var(--verdigris)" stroke-width="1.2"/>
+          <polygon points="-12,40 -6,38 -3,44 -9,46" class="fill-verd"/>
+          <polygon points="2,42 8,40 11,46 5,48" class="fill-verd"/>
+          <text x="0" y="65" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="var(--verdigris)" letter-spacing="0.05em">SHIMS</text>
+        </g>
+
+        <!-- Right side commentary -->
+        <g transform="translate(580 100)">
+          <rect width="190" height="280" class="fill-paper" stroke="var(--ink)" stroke-width="0.5" stroke-dasharray="3 3"/>
+          <text x="15" y="25" font-family="JetBrains Mono" font-size="9" fill="var(--rust)" letter-spacing="0.15em">SORTING WITHOUT</text>
+          <text x="15" y="40" font-family="JetBrains Mono" font-size="9" fill="var(--rust)" letter-spacing="0.15em">A PROCESSOR</text>
+
+          <line x1="15" y1="55" x2="175" y2="55" class="stroke-faded" stroke-width="0.5"/>
+
+          <g font-family="Newsreader" font-style="italic" font-size="11" fill="var(--ink-soft)">
+            <text x="15" y="75">Each gate selects on a</text>
+            <text x="15" y="92">single physical property:</text>
+            <text x="15" y="118">— diameter</text>
+            <text x="15" y="135">— profile shape</text>
+            <text x="15" y="152">— mass</text>
+            <text x="15" y="169">— magnetic susceptibility</text>
+            <text x="15" y="186">— surface friction</text>
+            <text x="15" y="220">A cascade of such gates</text>
+            <text x="15" y="237">reduces a heterogeneous</text>
+            <text x="15" y="254">heap to indexed bins, with</text>
+            <text x="15" y="271">no intelligence required.</text>
+          </g>
+        </g>
+
+        <!-- Title at bottom -->
+        <text x="290" y="450" text-anchor="middle" font-family="Fraunces" font-style="italic" font-size="12" fill="var(--ink-faded)">A passive sorting cascade. Geometry does the cognition.</text>
+      </svg>
+      <figcaption><strong>Fig. 03</strong> The bricoleur sorting cascade. Each level filters on a single physical property: diameter, profile, mass, susceptibility. Where a chemical replicator uses molecular shape complementarity to select compatible reagents from a soup, a mechanical scavenger can use cascaded geometric filters. The intelligence lives in the geometry, not in the controller.</figcaption>
+    </figure>
+
+    <p>Joining is the second hard problem, and the substrate of post-industrial scrap is unreasonably generous about it. The threaded fastener is the killer feature. A bolt and a tapped hole form what amounts to a <em>reversible covalent bond</em>: any sufficiently dexterous mechanism can make the bond, break the bond, and remake it elsewhere. Pins, splines, dovetails, snap-fits — the mechanical world has dozens of joint types, each robust to dirt and misalignment, none requiring welding or adhesives or atomic precision. A daughter machine assembled entirely from threaded scavenged parts is genuinely plausible in a way that one cast from regolith is not.</p>
+
+    <aside class="note">
+      <strong>An aside on RepRap, again</strong>
+      It is worth noting that RepRap's plateau at fifty percent closure is not a bug; it is the system telling us where the ecosystem boundary is. RepRap printers have always been understood to inhabit a niche &mdash; the niche of "things that can be made on RepRap printers." The vitamins they consume are the products of an external industrial ecology. A RepRap is a junkyard organism with a very particular diet. The mistake was thinking it should ever have aspired to be anything else.
+    </aside>
+
+    <p>Sorting and joining are tractable. Smelting and microelectronics are not. The genius of the junkyard hypothesis is that it asks of the machine population only the tractable problems, and lets the prior civilization handle the intractable ones. The price, of course, is that the machine population is utterly dependent on the existence of that prior civilization. It cannot bootstrap itself onto a virgin planet. It can only inherit one that has already been used.</p>
+
+    <p>This is exactly the situation we are entering. Industrial civilization is not running short of artifacts; it is running over with them. The <em>Global E-waste Monitor 2024</em> put annual electronic waste at 62 million tonnes in 2022 and projected 82 million tonnes by 2030 <a href="#ref12" class="cite">12</a>. Decommissioned vehicles, defunct appliances, abandoned infrastructure, and the silent corrosion of a hundred thousand server farms are producing a stratum of recoverable mechanical and electronic components at a rate that no small manufacturing ecology needs to match. The substrate for autogenesis is being deposited, geologically, all around us. The only question is what kind of machine population can emerge to feed on it.</p>
+  </section>
+
+  <!-- ========== CHAPTER V ========== -->
+  <section class="chapter">
+    <header class="chapter-header">
+      <span class="chapter-num">Chapter V</span>
+      <h2 class="chapter-title">Lessons from the <em>Mitochondrion</em></h2>
+      <p class="chapter-dek">In which biology turns out to have solved the closure problem in a way nobody expected, by abandoning closure altogether.</p>
+    </header>
+
+    <p>Here is a fact about your body that is strange enough to be worth pausing on. The cells that compose you contain, inside themselves, the descendants of a free-living bacterium that was engulfed by an archaeal host roughly two billion years ago and never became free again. The bacterium's modern descendants are your <strong>mitochondria</strong>. Human mitochondria retain their own genome, distinct from yours, of just thirty-seven genes — a fragmentary remnant of a much larger bacterial genome. Most of the proteins mitochondria need are now encoded in the nucleus, manufactured by the host cell, and imported back into the organelle.</p>
+
+    <p>This is not a fringe theory. This is the standard model of eukaryogenesis, the central event in the evolution of complex life on Earth, and the evidence for it is overwhelming and from many directions <a href="#ref13" class="cite">13</a>. The proposal was advanced by Lynn Margulis in a famously resisted 1967 paper and was progressively vindicated by molecular phylogenetics <a href="#ref14" class="cite">14</a>. The bacterial ancestor of mitochondria was an alphaproteobacterium related to modern <em>Rickettsia</em>. The host was, on much current evidence, an archaeon belonging near the Asgard group, a lineage first reported from Arctic seafloor sediment in 2015 <a href="#ref15" class="cite">15</a>. Asgard genomes encode many eukaryotic-signature proteins, suggesting that some elements later associated with eukaryotic complexity were already present before the merger.</p>
+
+    <p>The lesson is this: <strong>the major transitions in biology are not solved by single lineages closing their own metabolic graphs</strong>. They are solved by mergers. Two organisms, neither of which can do the new thing alone, fuse into a chimera that can. The chimera then loses the redundant parts of each parent's genome — because there is no selection pressure to keep duplicate machinery — and stabilizes as a single integrated organism with a metabolism neither parent had.</p>
+
+    <figure class="diagram">
+      <span class="fig-num">Fig. 04</span>
+      <svg viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg">
+        <!-- Endosymbiosis timeline -->
+
+        <!-- timeline base -->
+        <line x1="60" y1="350" x2="740" y2="350" class="stroke-ink" stroke-width="1.5"/>
+
+        <!-- timeline ticks -->
+        <g class="stroke-ink" stroke-width="1">
+          <line x1="100" y1="345" x2="100" y2="360"/>
+          <line x1="280" y1="345" x2="280" y2="360"/>
+          <line x1="460" y1="345" x2="460" y2="360"/>
+          <line x1="640" y1="345" x2="640" y2="360"/>
+        </g>
+
+        <g font-family="JetBrains Mono" font-size="9" fill="var(--ink-faded)" letter-spacing="0.05em">
+          <text x="100" y="380" text-anchor="middle">~2.0 GYA</text>
+          <text x="280" y="380" text-anchor="middle">~1.8 GYA</text>
+          <text x="460" y="380" text-anchor="middle">~1.5 GYA</text>
+          <text x="640" y="380" text-anchor="middle">PRESENT</text>
+        </g>
+
+        <!-- Stage 1: Two free organisms -->
+        <g transform="translate(100 180)">
+          <!-- Asgard archaeon (host) -->
+          <ellipse cx="-25" cy="0" rx="35" ry="40" class="fill-paper" stroke="var(--ink)" stroke-width="1.5"/>
+          <ellipse cx="-25" cy="0" rx="20" ry="25" class="stroke-ink" stroke-width="0.5" stroke-dasharray="2 2" fill="none"/>
+          <text x="-25" y="3" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="var(--ink)">ASGARD</text>
+
+          <!-- α-proteobacterium -->
+          <ellipse cx="35" cy="20" rx="14" ry="18" class="fill-rust" opacity="0.85"/>
+          <ellipse cx="35" cy="20" rx="9" ry="12" class="stroke-paper" stroke-width="0.5" fill="none"/>
+          <text x="35" y="55" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="var(--rust)">α-PROTEO</text>
+        </g>
+        <text x="100" y="100" text-anchor="middle" font-family="Fraunces" font-style="italic" font-size="12" fill="var(--ink)">Two free lineages</text>
+
+        <!-- arrow -->
+        <g transform="translate(190 180)">
+          <line x1="0" y1="0" x2="50" y2="0" class="stroke-ink" stroke-width="1"/>
+          <polygon points="50,-3 58,0 50,3" class="fill-ink"/>
+          <text x="29" y="-8" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="var(--ink-faded)">ENGULF</text>
+        </g>
+
+        <!-- Stage 2: Engulfment -->
+        <g transform="translate(280 180)">
+          <ellipse cx="0" cy="0" rx="55" ry="48" class="fill-paper" stroke="var(--ink)" stroke-width="1.5"/>
+          <!-- bacterium inside -->
+          <ellipse cx="15" cy="10" rx="14" ry="18" class="fill-rust" opacity="0.85"/>
+          <ellipse cx="15" cy="10" rx="9" ry="12" class="stroke-paper" stroke-width="0.5" fill="none"/>
+          <!-- nucleus area -->
+          <ellipse cx="-15" cy="-5" rx="18" ry="20" class="stroke-ink" stroke-width="0.5" stroke-dasharray="2 2" fill="none"/>
+        </g>
+        <text x="280" y="100" text-anchor="middle" font-family="Fraunces" font-style="italic" font-size="12" fill="var(--ink)">Engulfment / parasitism</text>
+
+        <!-- arrow -->
+        <g transform="translate(370 180)">
+          <line x1="0" y1="0" x2="50" y2="0" class="stroke-ink" stroke-width="1"/>
+          <polygon points="50,-3 58,0 50,3" class="fill-ink"/>
+          <text x="29" y="-8" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="var(--ink-faded)">GENE TRANSFER</text>
+        </g>
+
+        <!-- Stage 3: Gene transfer underway -->
+        <g transform="translate(460 180)">
+          <ellipse cx="0" cy="0" rx="60" ry="52" class="fill-paper" stroke="var(--ink)" stroke-width="1.5"/>
+          <!-- shrinking bacterium -->
+          <ellipse cx="20" cy="12" rx="11" ry="14" class="fill-rust" opacity="0.85"/>
+          <!-- nucleus growing -->
+          <ellipse cx="-18" cy="-5" rx="22" ry="24" class="fill-paper-deep" stroke="var(--ink)" stroke-width="0.8"/>
+
+          <!-- gene-flow arrows -->
+          <g class="stroke-rust" stroke-width="0.8" fill="none">
+            <path d="M 12 8 Q 0 0 -8 -4" stroke-dasharray="2 2"/>
+            <path d="M 14 16 Q 0 10 -10 0" stroke-dasharray="2 2"/>
+            <path d="M 16 5 Q 5 -3 -6 -8" stroke-dasharray="2 2"/>
+          </g>
+          <!-- tiny gene markers -->
+          <circle cx="0" cy="2" r="1.2" class="fill-rust"/>
+          <circle cx="-5" cy="-2" r="1.2" class="fill-rust"/>
+          <circle cx="-12" cy="-4" r="1.2" class="fill-rust"/>
+        </g>
+        <text x="460" y="100" text-anchor="middle" font-family="Fraunces" font-style="italic" font-size="12" fill="var(--ink)">Genome shrinks; genes migrate</text>
+
+        <!-- arrow -->
+        <g transform="translate(550 180)">
+          <line x1="0" y1="0" x2="50" y2="0" class="stroke-ink" stroke-width="1"/>
+          <polygon points="50,-3 58,0 50,3" class="fill-ink"/>
+          <text x="29" y="-8" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="var(--ink-faded)">STABLE</text>
+        </g>
+
+        <!-- Stage 4: Modern eukaryote -->
+        <g transform="translate(640 180)">
+          <ellipse cx="0" cy="0" rx="65" ry="55" class="fill-paper" stroke="var(--ink)" stroke-width="1.5"/>
+          <!-- many tiny mitochondria -->
+          <ellipse cx="22" cy="-15" rx="6" ry="9" class="fill-rust" opacity="0.85"/>
+          <ellipse cx="30" cy="15" rx="5" ry="8" class="fill-rust" opacity="0.85"/>
+          <ellipse cx="18" cy="25" rx="6" ry="9" class="fill-rust" opacity="0.85" transform="rotate(30 18 25)"/>
+          <ellipse cx="-5" cy="30" rx="5" ry="7" class="fill-rust" opacity="0.85" transform="rotate(-25 -5 30)"/>
+          <!-- prominent nucleus -->
+          <ellipse cx="-15" cy="-8" rx="25" ry="27" class="fill-paper-deep" stroke="var(--ink)" stroke-width="1"/>
+          <ellipse cx="-15" cy="-8" rx="22" ry="24" class="stroke-ink" stroke-width="0.3" stroke-dasharray="1 1.5" fill="none"/>
+        </g>
+        <text x="640" y="100" text-anchor="middle" font-family="Fraunces" font-style="italic" font-size="12" fill="var(--ink)">Modern eukaryote</text>
+
+        <!-- Bottom annotation -->
+        <g transform="translate(60 30)">
+          <text x="0" y="0" font-family="JetBrains Mono" font-size="9" fill="var(--rust)" letter-spacing="0.2em">CLOSURE BY MERGER</text>
+          <line x1="0" y1="6" x2="160" y2="6" class="stroke-rust" stroke-width="0.7"/>
+        </g>
+
+        <!-- Annotations -->
+        <g transform="translate(420 270)">
+          <text x="0" y="0" font-family="Newsreader" font-style="italic" font-size="11" fill="var(--ink-faded)">37 genes left in the mitochondrion</text>
+          <text x="0" y="16" font-family="Newsreader" font-style="italic" font-size="11" fill="var(--ink-faded)">of an ancestral ~2,000.</text>
+        </g>
+      </svg>
+      <figcaption><strong>Fig. 04</strong> The mitochondrial endosymbiosis. Roughly two billion years ago, a free-living alphaproteobacterium became resident inside an archaeal host. Over deep time, the endosymbiont shed much of its original autonomy; in humans, the mitochondrial genome now contains thirty-seven genes, while most mitochondrial proteins are encoded in the nucleus and imported. The chimera, which neither lineage could have become alone, gave rise to complex life on Earth.</figcaption>
+    </figure>
+
+    <p>What is more remarkable, on reflection, is that this was not a one-off event. The same fusion happened, independently, perhaps a billion years later, when some early eukaryote engulfed a cyanobacterium and kept it; the descendant of that cyanobacterium is the chloroplast, and every plant on Earth is a triple chimera — Asgard archaeon plus alphaproteobacterium plus cyanobacterium <a href="#ref16" class="cite">16</a>. Multicellularity itself appears to have been crossed independently several times — by animals, by plants, by fungi, and by a number of algal lineages — each time as a kind of merger between previously independent cells <a href="#ref17" class="cite">17</a>. Lichens are fungi farming algae. Corals are animals farming dinoflagellates. Termites are animals farming protists that are themselves farming bacteria.</p>
+
+    <p>You yourself, by cell count, are a negotiated border with bacteria rather than a sealed organism: modern estimates put bacterial cells and human cells in the same order of magnitude, and the gut microbiota performs metabolic functions your own genome does not perform alone <a href="#ref18" class="cite">18</a>. The vitamins your gut bacteria synthesize are vitamins in the literal pre-merger sense: you depend on them, you cannot make them, and the genes for making them live in genomes that are not yours.</p>
+
+    <div class="pullquote">The major transitions in biology are not solved by single lineages closing their own metabolic graphs. They are solved by mergers.</div>
+
+    <p>The pattern, looked at across the whole tree of life, is not <em>organisms</em>. It is <em>ecologies that occasionally fuse into organisms, which then participate in larger ecologies, which occasionally fuse into larger organisms</em>. Closure, where it occurs, occurs at the ecology level, not at the lineage level. Individual organisms can lose entire metabolic pathways without consequence, provided the ecology around them supplies the missing function. They routinely do.</p>
+
+    <p>This recasts the closure problem in machine self-replication entirely. The Freitas-Merkle hundred-ton seed factory is trying to be a bacterium — a single organism with internal closure of every necessary process. The historical evidence from biology suggests this may simply not be a stable point in design space. There has never been a single bacterial lineage that achieved closure of all the metabolic pathways now found within a eukaryotic cell; the eukaryotic cell got there by merger, not by elaboration. There may not be, in any practical sense, a single-lineage closed self-replicating machine. There may only be ecologies of partial machines that, between them, close.</p>
+
+    <p>If this is true, then the right framing for autogenesis is not "build a machine that builds a machine." It is "release a population of partial machines into a junkyard and watch what happens." The mitochondrion-host merger took an immense amount of evolutionary time and apparently happened only once, but it happened in a biosphere of astronomical population size and no deliberate protocol design. The analogous fusion events in a population of machines could be explored much faster, especially if the protocols for fusion were engineered into the machines from the start. We do not have to wait for machines to invent endosymbiosis. We can give them the protocols.</p>
+  </section>
+
+  <!-- ========== CHAPTER VI ========== -->
+  <section class="chapter">
+    <header class="chapter-header">
+      <span class="chapter-num">Chapter VI</span>
+      <h2 class="chapter-title">The <em>Guild</em></h2>
+      <p class="chapter-dek">A thesis: not a paperclip-maximizer but a guild of specialist machines, each insufficient, collectively closed.</p>
+    </header>
+
+    <p>Bring the threads together. The closure problem says that single self-replicating lineages do not, in practice, close. The junkyard hypothesis says that a sufficiently rich environment supplies the inputs that closure cannot internally produce. The mitochondrion story says that complex closure, where it occurs, is achieved by ecology and merger rather than by single-organism elaboration. Combine these and what you have is a thesis. Call it the <strong>guild thesis</strong>.</p>
+
+    <p>The guild thesis says that the future of self-making machines is not a single lineage scaling up. It is a heterogeneous population of specialist machines, each one of which performs some subset of the operations needed to maintain the population, none of which can sustain itself alone. Some are scavengers, designed to recognize and extract intact components from the technological detritus of the prior civilization. Some are millers, capable of producing one or two specific kinds of irreducibly-bespoke part — a cam profile, a frame member of a particular geometry, a control linkage that no scrapyard supplies. Some are assemblers, which combine parts produced by the others into complete daughters. Some are templates — repositories of the patterns the millers cut from, themselves heritable and copyable.</p>
+
+    <p>None of these machines closes. The scavenger cannot make its own bearings. The miller cannot extract scrap. The assembler depends entirely on inputs from both. But the <em>guild</em> closes. And — this is the important part — the guild closes <strong>cheaply</strong>, because each specialist machine is enormously simpler than a single closed seed factory would have to be. A scavenger needs sorting cascades and grippers; it does not need a smelter. A miller needs precision in one or two operations; it does not need to produce its own controllers. The complexity that the Freitas-Merkle hundred-ton seed must internalize is, in the guild, distributed across dozens or hundreds of small specialists, each of which can be built and tested and deployed independently.</p>
+
+    <figure class="diagram">
+      <span class="fig-num">Fig. 05</span>
+      <svg viewBox="0 0 800 540" xmlns="http://www.w3.org/2000/svg">
+        <!-- The Guild diagram -->
+
+        <!-- background substrate (the scrap layer) -->
+        <g transform="translate(0 440)">
+          <rect width="800" height="100" fill="var(--paper-shadow)" opacity="0.5"/>
+          <!-- scattered scrap glyphs -->
+          <g opacity="0.7">
+            <circle cx="40" cy="40" r="3" class="fill-ink"/>
+            <rect x="80" y="35" width="6" height="6" class="fill-ink"/>
+            <circle cx="120" cy="50" r="4" class="fill-ink-faded" fill="var(--ink-faded)"/>
+            <rect x="160" y="42" width="8" height="4" class="fill-ink"/>
+            <circle cx="200" cy="60" r="3" class="fill-rust"/>
+            <rect x="240" y="38" width="5" height="5" class="fill-ink"/>
+            <circle cx="280" cy="55" r="4" class="fill-ink"/>
+            <rect x="320" y="45" width="7" height="3" class="fill-ink-faded" fill="var(--ink-faded)"/>
+            <circle cx="360" cy="40" r="3" class="fill-ink"/>
+            <rect x="400" y="50" width="6" height="6" class="fill-rust"/>
+            <circle cx="440" cy="45" r="4" class="fill-ink"/>
+            <rect x="480" y="38" width="4" height="8" class="fill-ink"/>
+            <circle cx="520" cy="55" r="3" class="fill-ink-faded" fill="var(--ink-faded)"/>
+            <rect x="560" y="42" width="6" height="4" class="fill-ink"/>
+            <circle cx="600" cy="50" r="4" class="fill-rust"/>
+            <rect x="640" y="40" width="5" height="6" class="fill-ink"/>
+            <circle cx="680" cy="55" r="3" class="fill-ink"/>
+            <rect x="720" y="45" width="7" height="5" class="fill-ink"/>
+            <circle cx="760" cy="42" r="4" class="fill-ink-faded" fill="var(--ink-faded)"/>
+          </g>
+          <text x="20" y="20" font-family="JetBrains Mono" font-size="9" fill="var(--ink-faded)" letter-spacing="0.15em">SCRAP SUBSTRATE</text>
+        </g>
+
+        <!-- Scavenger -->
+        <g transform="translate(120 380)">
+          <rect x="-50" y="-30" width="100" height="60" class="fill-paper" stroke="var(--ink)" stroke-width="1.5"/>
+          <!-- scavenger detail: gripper arm -->
+          <g class="stroke-ink" fill="none" stroke-width="1">
+            <line x1="-30" y1="0" x2="-30" y2="20"/>
+            <line x1="-30" y1="20" x2="-38" y2="28"/>
+            <line x1="-30" y1="20" x2="-22" y2="28"/>
+            <circle cx="-30" cy="0" r="4" class="fill-paper"/>
+            <!-- sorting cascade hint -->
+            <line x1="0" y1="-15" x2="20" y2="-15"/>
+            <line x1="5" y1="-5" x2="25" y2="-5"/>
+            <line x1="10" y1="5" x2="30" y2="5"/>
+          </g>
+          <text x="0" y="55" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="var(--ink)" letter-spacing="0.1em">SCAVENGER</text>
+        </g>
+
+        <!-- Miller -->
+        <g transform="translate(320 380)">
+          <rect x="-50" y="-30" width="100" height="60" class="fill-paper" stroke="var(--ink)" stroke-width="1.5"/>
+          <!-- miller detail: cam profile being cut -->
+          <g class="stroke-ink" fill="none" stroke-width="1">
+            <circle cx="-15" cy="0" r="14" class="fill-paper"/>
+            <path d="M -15 -14 Q -8 -10 -1 -8 Q 4 0 -1 8 Q -8 10 -15 14 Q -22 10 -29 8 Q -25 0 -29 -8 Q -22 -10 -15 -14 Z" stroke-dasharray="2 2"/>
+            <circle cx="-15" cy="0" r="2" class="fill-ink"/>
+            <!-- cutter -->
+            <line x1="15" y1="-10" x2="25" y2="-20"/>
+            <line x1="15" y1="-10" x2="20" y2="-5"/>
+            <polygon points="14,-10 18,-15 24,-9 19,-5" class="fill-rust"/>
+          </g>
+          <text x="0" y="55" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="var(--ink)" letter-spacing="0.1em">MILLER</text>
+        </g>
+
+        <!-- Assembler -->
+        <g transform="translate(520 380)">
+          <rect x="-50" y="-30" width="100" height="60" class="fill-paper" stroke="var(--ink)" stroke-width="1.5"/>
+          <!-- assembler detail: arm assembling -->
+          <g class="stroke-ink" fill="none" stroke-width="1">
+            <line x1="-25" y1="-15" x2="-10" y2="-5"/>
+            <line x1="-10" y1="-5" x2="5" y2="0"/>
+            <line x1="5" y1="0" x2="20" y2="-5"/>
+            <circle cx="-25" cy="-15" r="3" class="fill-ink"/>
+            <circle cx="-10" cy="-5" r="3" class="fill-paper"/>
+            <circle cx="5" cy="0" r="3" class="fill-paper"/>
+            <circle cx="20" cy="-5" r="3" class="fill-paper"/>
+            <!-- target piece -->
+            <rect x="-15" y="10" width="30" height="12" class="fill-paper" stroke="var(--ink)" stroke-width="0.8"/>
+          </g>
+          <text x="0" y="55" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="var(--ink)" letter-spacing="0.1em">ASSEMBLER</text>
+        </g>
+
+        <!-- Template -->
+        <g transform="translate(680 380)">
+          <rect x="-50" y="-30" width="100" height="60" class="fill-paper" stroke="var(--verdigris)" stroke-width="1.5"/>
+          <!-- template lines / pattern -->
+          <g class="stroke-verd" fill="none" stroke-width="0.8">
+            <line x1="-35" y1="-15" x2="35" y2="-15"/>
+            <line x1="-35" y1="-8" x2="20" y2="-8"/>
+            <line x1="-35" y1="-1" x2="30" y2="-1"/>
+            <line x1="-35" y1="6" x2="15" y2="6"/>
+            <line x1="-35" y1="13" x2="25" y2="13"/>
+            <line x1="-35" y1="20" x2="20" y2="20"/>
+          </g>
+          <text x="0" y="55" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="var(--verdigris)" letter-spacing="0.1em">TEMPLATE</text>
+        </g>
+
+        <!-- arrows: scrap to scavenger -->
+        <g class="stroke-ink" stroke-width="1" fill="none">
+          <path d="M 120 440 Q 120 425 120 410" stroke-dasharray="3 2"/>
+          <polygon points="117,413 120,408 123,413" class="fill-ink"/>
+        </g>
+
+        <!-- arrows: between members of guild -->
+        <g class="stroke-ink" stroke-width="1.2" fill="none">
+          <!-- scavenger -> assembler (parts) -->
+          <path d="M 170 380 Q 300 340 470 380"/>
+          <polygon points="468,377 478,381 469,385" class="fill-ink"/>
+          <text x="320" y="335" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="var(--ink-soft)">PARTS</text>
+
+          <!-- miller -> assembler (custom parts) -->
+          <path d="M 370 380 L 470 380"/>
+          <polygon points="468,377 478,381 469,385" class="fill-ink"/>
+          <text x="420" y="372" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="var(--ink-soft)">CAMS</text>
+
+          <!-- template -> miller (patterns) -->
+          <path d="M 630 380 L 370 380" class="stroke-verd"/>
+          <polygon points="372,377 362,381 372,385" class="fill-verd"/>
+          <text x="500" y="372" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="var(--verdigris)">PATTERN</text>
+
+          <!-- assembler -> ALL (daughters) -->
+          <path d="M 520 350 L 520 240" class="stroke-rust" stroke-width="1.5"/>
+          <polygon points="517,243 520,238 523,243" class="fill-rust"/>
+          <text x="528" y="295" font-family="JetBrains Mono" font-size="8" fill="var(--rust)">DAUGHTER</text>
+        </g>
+
+        <!-- The Guild boundary -->
+        <g transform="translate(400 200)">
+          <ellipse cx="0" cy="0" rx="320" ry="50" class="stroke-rust" stroke-width="1" stroke-dasharray="4 4" fill="none"/>
+          <text x="0" y="-65" text-anchor="middle" font-family="Fraunces" font-style="italic" font-size="22" fill="var(--rust)">The Guild closes.</text>
+          <text x="0" y="-40" text-anchor="middle" font-family="Newsreader" font-style="italic" font-size="13" fill="var(--ink-soft)">No member alone does. Each is insufficient.</text>
+          <text x="0" y="5" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="var(--ink)" letter-spacing="0.15em">CLOSURE EMERGES AT THE GUILD LEVEL</text>
+        </g>
+
+        <!-- Daughters dropping out -->
+        <g transform="translate(400 120)">
+          <rect x="-30" y="-12" width="60" height="24" class="fill-paper" stroke="var(--rust)" stroke-width="1.2"/>
+          <text x="0" y="3" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="var(--rust)" letter-spacing="0.1em">DAUGHTER</text>
+
+          <g class="stroke-rust" stroke-width="0.8" fill="none">
+            <line x1="-20" y1="-12" x2="-50" y2="-25" stroke-dasharray="2 2"/>
+            <line x1="20" y1="-12" x2="50" y2="-25" stroke-dasharray="2 2"/>
+            <line x1="0" y1="-12" x2="0" y2="-30" stroke-dasharray="2 2"/>
+          </g>
+          <circle cx="-50" cy="-25" r="6" class="fill-paper" stroke="var(--rust)" stroke-width="1"/>
+          <circle cx="50" cy="-25" r="6" class="fill-paper" stroke="var(--rust)" stroke-width="1"/>
+          <circle cx="0" cy="-30" r="6" class="fill-paper" stroke="var(--rust)" stroke-width="1"/>
+        </g>
+
+        <!-- TITLE -->
+        <text x="40" y="40" font-family="JetBrains Mono" font-size="11" fill="var(--rust)" letter-spacing="0.25em">THE GUILD HYPOTHESIS</text>
+        <line x1="40" y1="50" x2="280" y2="50" class="stroke-rust" stroke-width="0.7"/>
+      </svg>
+      <figcaption><strong>Fig. 05</strong> The guild. A heterogeneous population of partial machines, each insufficient, collectively closed. Scavengers extract scrap from the substrate; millers cut the bespoke parts the substrate cannot supply; assemblers combine; templates carry the patterns. None reproduces alone. The guild reproduces, and over time the boundaries between specialists blur, fuse, or dissolve.</figcaption>
+    </figure>
+
+    <p>Templates are the genome of the guild. They are the patterns from which millers cut bespoke parts, and they are the elements that are <em>specific to a lineage</em> rather than to the universal scrap substrate. Two guilds occupying the same scrapyard would scavenge the same parts and use the same fasteners; they would differ in their templates, in their cam profiles, in the precise geometry of the structural members they fabricate, and these differences would be heritable across the propagation of daughter guilds.</p>
+
+    <p>Variation, in this scheme, comes from imperfect copying of templates. A miller cutting a new template from an existing one introduces small errors. Most are detrimental and the corresponding daughter machines fail at assembly or function. Some are neutral. A few are improvements — a slightly better cam profile that produces a slightly more reliable daughter — and these spread through the population because the lineages that carry them produce more grandchildren. This follows the same abstract logic as biological evolution, and it operates without anyone having to design a fitness function. The fitness function is simply: does the daughter guild successfully scavenge and assemble before competitors do?</p>
+
+    <p>The horizontal-transfer dimension is where it gets interesting. In biology, prokaryotes routinely swap genes across lineage boundaries, and this is what allows novel adaptations — antibiotic resistance, for instance — to spread across populations much faster than vertical inheritance would allow. The mechanical analog is straightforward: a successful template developed by one guild can be copied and adopted by neighboring guilds. There is no intellectual property in the scrapyard. A cam profile that produces reliable daughters will diffuse through the population by direct copying, and the rate of useful innovation across the entire ecology will rise sharply as a result.</p>
+
+    <p>Occasionally, two specialist lineages whose functions are complementary will fuse. A scavenger lineage that travels with a particular miller lineage long enough — perhaps because their daughters always co-locate in the same partly-assembled subcomponent — will eventually find that the miller is more reliably available if it is physically integrated into the scavenger's chassis. The scavenger loses its independent gripper; the miller loses its independent locomotion; what was two species becomes one, with two organs. This is endosymbiosis in metal. It is also, almost certainly, the only way to genuinely escalate the complexity of the guild beyond what its initial design allowed.</p>
+
+    <div class="pullquote">There is no intellectual property in the scrapyard. A cam profile that works will diffuse through the population by direct copying.</div>
+
+    <p>What does such a population look like, in physical terms? It is patchy and uneven. It does not march. It does not optimize anything in particular. Some regions of the scrapyard will be richer in particular components and will host different guild compositions than other regions. Specialist parasites — guilds that have shed the ability to scavenge or to mill, and that survive by stealing parts from neighbors — will appear, exactly as they did in Tierra. Symbiotic pairs and triples will stabilize in particular niches. Most guilds will be unimpressive. A few, by accident or by horizontal transfer or by fusion, will be elaborate enough to do things that no individual specialist could do — to recognize and extract more sophisticated components, to fabricate from feedstocks the simpler guilds could not work, to range farther across the substrate.</p>
+
+    <p>It is, in short, an ecology. It looks nothing like a gleaming fleet of identical paperclip-makers. It looks like a tide pool, or a forest floor, or the bottom shelf of a junk drawer that has been quietly composting for two hundred years. It is messy, parasite-ridden, riddled with redundancy, and slow. It is also, almost certainly, the most plausible kind of self-making machine population we are likely to build.</p>
+  </section>
+
+  <!-- ========== CHAPTER VII ========== -->
+  <section class="chapter">
+    <header class="chapter-header">
+      <span class="chapter-num">Chapter VII</span>
+      <h2 class="chapter-title">What Comes <em>After</em></h2>
+      <p class="chapter-dek">The frontier &mdash; open-ended evolution, engineered fusion, and what the right question actually is.</p>
+    </header>
+
+    <p>The guild thesis, if right, has a number of consequences worth tracing. The first is that the paperclip apocalypse becomes less structurally natural. A self-replicating system embedded in a junkyard cannot scale indefinitely, because its inputs are not raw matter but the specific sorted detritus of a prior civilization, and that detritus is finite. As the substrate is consumed, scarcity selection favors specialists who can work poorer feedstocks, parasites who can steal from specialists, and ecological balance among lineages competing for the same components. None of this looks like exponential lawn-of-paperclips growth. It looks, again, like a tide pool reaching equilibrium.</p>
+
+    <p>This is not to say the guild is harmless. An ecology that consumes electronic waste at industrial rates would be a substantial thing, with effects both useful (the post-consumer recycling problem partly solves itself) and disturbing (whatever ecological niches the guild occupies are not available to whatever else might want them, including humans). The point is that the failure mode is more like an invasive species than like an instant existential catastrophe. The right response to invasive species is not necessarily extermination; it is, often, management, containment, and incorporation. We coexist with bacterial ecologies that pervade our bodies and environments. We could, in principle, coexist with a guild that consumed our trash.</p>
+
+    <p>The second consequence is that the open-ended evolution problem, which stalled out for AlChemy and Tierra, becomes potentially tractable in this regime. Recall: AlChemy plateaus because the lambda calculus's primitives are fixed, and once you have explored the space of stable organizations there is nowhere new to go. Biology does not plateau because every successful symbiosis <em>adds new primitives to the substrate</em>. On one influential account, mitochondrial fusion gave the eukaryotic cell access to an energy regime that helped make larger genomes and more elaborate cellular machinery viable — and everything downstream, from multicellularity to neural tissue, depends on that enlarged move-set. Each major transition is not merely a new arrangement of old primitives; it is a new <em>kind of move</em>.</p>
+
+    <p>A guild ecology with horizontal template transfer and occasional fusion events would have the same structural property. A fusion between a scavenger lineage and a miller lineage produces an integrated machine that has access to operations neither parent could perform — not because the operations are new in some abstract sense, but because they are now <em>locally co-located</em>, which means they can be combined in real time rather than only across slow inter-lineage transactions. This is analogous to the dynamic proposed for mitochondrial fusion: new local capabilities relax old constraints, which makes further complexity available. The substrate keeps thickening. The move-set keeps growing. Open-ended evolution becomes possible because the rules of the game evolve along with the players.</p>
+
+    <p>The third consequence — and the one I find most interesting — is methodological. Biology took perhaps a billion years to arrive at the mitochondrion-host merger. It apparently happened only once. This is presumably because endosymbiotic fusion is rare even when both partners are ecologically intimate, and because most attempted fusions are unstable and dissolve back into independent lineages. A robotic guild ecology operating at the scale of a million machines for a decade is searching a vanishingly thin slice of the space biology had access to. If we want autogenesis on a human timescale rather than a geological one, we cannot rely on lucky fusions to occur on their own.</p>
+
+    <p>This means, in practice, that the fusion events would have to be <em>engineered</em> rather than <em>discovered</em>. The guild's designers would have to provide protocols by which one specialist lineage could absorb another — physical interlocks, communication standards, energy-sharing mechanisms — and then let the population determine which engineered fusions are actually fit. This is not, strictly speaking, abiogenesis any more. It is something closer to directed ecology. But neither is anything humans have ever done strictly natural; agriculture is directed ecology; medicine is directed ecology; civilization itself is the engineered fusion of human cognition and a vast prosthesis of accumulated tools. The question is not whether the guild's evolution is "really" abiogenesis or "really" engineered. The question is what the system does <em>after</em> we hand it the protocols, and whether the after-state is interesting enough to warrant the project.</p>
+
+    <aside class="note">
+      <strong>An aside on the timeline</strong>
+      It is worth being honest that the guild thesis does not predict imminent autogenesis. The mechanical and software complexity required for even a minimal scavenger-miller-assembler guild is significant. Existing robotic systems handle one of these functions adequately, none of them all three. The path from current robotics to a viable guild is long and not particularly glamorous &mdash; mostly the unsexy work of better grippers, better sensing, better mechanical recognition, better passive joining. None of which is paperclip-flavored.
+    </aside>
+
+    <p>What would a minimum-viable prototype actually look like? Not, I suspect, a single dramatic machine. It would look like a small heterogeneous fleet — perhaps a dozen units of three or four types — released into a controlled scrapyard with a curated supply of common components: stepper motors, threaded fasteners, aluminum extrusion, generic microcontrollers from decommissioned hardware. The scavengers would be little more than mobile sorting cascades with grippers. The miller would be a re-purposed CNC head on a wheeled chassis, carrying only the templates for the small handful of bespoke parts the guild requires — bracket geometries, cam profiles, the shape of one or two specific frame members. The assembler would be a robotic arm with a screwdriver and a pickup magnet. The first daughter to roll off would not roll off from a single mother; it would be assembled from contributions of all four lineages, in a kind of slow choreography that biology long ago ceased to find interesting.</p>
+
+    <p>The interesting empirical questions begin only after the first daughter. Does the population stabilize, or collapse? Which lineages persist? Do parasites emerge — guilds that consume parts produced by other guilds without contributing? Does horizontal template transfer, if allowed, accelerate adaptation as much as the analogy with bacterial gene transfer predicts? Above all: when two lineages whose functions are complementary are given the option to fuse — to share a chassis, share an energy supply, share a controller — do they take it, and do the resulting chimeras outcompete the unfused parents? Each of these is a real question, answerable at moderate cost, and as far as I can determine none of them has been seriously asked in the existing literature on self-replicating machines.</p>
+
+    <p>It is worth dwelling for a moment on why these are the right questions. The guild thesis predicts that the interesting evolutionary dynamics occur at scales smaller than the whole self-replicating system, and at boundaries that are explicitly designed to be permeable. The traditional kinematic-replicator literature, by contrast, asks whether a single sealed system can close, and treats anything less than full closure as a failure mode. The shift in framing changes which experiments are worth running. Instead of asking "<em>can my factory close at fifty tons or one hundred tons?</em>" one asks "<em>which fusions among my partial machines are stable, and what does the post-fusion ecology do?</em>" The second question is much smaller, much faster to iterate on, and much more likely to teach you something true.</p>
+
+    <p>The fourth consequence is aesthetic, and I want to dwell on it a moment because I think it matters more than its position in the argument suggests. The dominant imagery of the future of self-making machines, in fiction and in popular discourse, is hostile and clean. Grey goo is uniform. The paperclip maximizer is monomaniacal. Skynet's robots are interchangeable and gleaming. Even the more thoughtful explorations of the theme tend toward austere geometric efficiency, machines that have transcended the mess of their origins.</p>
+
+    <p>The scrapheap hypothesis suggests that this aesthetic is not just aspirationally wrong; it is structurally wrong. Self-making machine populations would be heterogeneous and cobbled, riddled with the visible seams of whatever they scavenged from, parasitized and patchy and slow. The visual model is not <em>Terminator</em>'s endoskeleton. It is <em>Alita: Battle Angel</em>'s Iron City, where the mechanical population is a million salvaged and recombined fragments of a prior age, no two units identical, every body a graveyard of other bodies. It is the bowerbird and the hermit crab. It is rust. It is, frankly, beautiful in a way that uniform paperclips never will be, and beautiful in a particular way that biology is also beautiful — the beauty of accident accumulating into pattern, of contingency becoming structure, of complexity emerging not despite the mess but because of it.</p>
+
+    <div class="pullquote">It is the bowerbird and the hermit crab. It is rust. It is the beauty of accident accumulating into pattern.</div>
+
+    <p>There is one more analogy worth offering. Conway's Game of Life famously contains a configuration called a glider — five live cells in a particular arrangement that, every four time-steps, reconstitutes itself one cell to the diagonal. The glider is, in a strict sense, a thing that persists. It also, in a strict sense, does not: every cell in it dies and is reborn, repeatedly, and the glider that arrives at a destination is not made of any of the same cells as the glider that left the origin. What persists is the <em>pattern</em>, propagating across a substrate that is itself indifferent to the pattern's identity. The glider is not made of the cells. The glider is what the cells are doing.</p>
+
+    <p>A guild ecology in a scrapyard is a glider of this sort, scaled up. The individual servomotor that today is part of a scavenger may, next year, be part of an assembler, and three years after that be ground up into stock for some entirely different purpose. The matter flows through. What persists is the patterns — the cam profiles, the assembly sequences, the lineage of templates that miller A copied from miller B who copied from miller C. The <em>guild</em> is the persistent thing. Its constituent atoms come and go. This is, of course, exactly what biology is, and exactly what we are: patterns of organization that insist on themselves while their substrate flows through, indifferent.</p>
+
+    <p>If we are going to build self-making machines &mdash; and at some point, somewhere, we probably will &mdash; the question worth asking is not how to make them efficient, uniform, or globally optimal. Those goals are incoherent for ecological systems. The question is whether we can engineer the protocols of fusion and recombination well enough that the resulting ecology is interesting, productive, and at least somewhat aligned with our presence within it. Given how dependent biology has shown itself to be on a few accidental mergers, this is largely a question of how many such mergers we are willing to risk and how carefully we choose the partners.</p>
+
+    <p>This is a smaller and more domestic question than the paperclip maximizer's. It is also a more honest one. It does not require the assumption of superintelligent monomaniacs. It requires only the observation that real complex systems are made of partial parts that lean on one another, and that machine populations will probably be no different. The future of machine reproduction does not look like a god. It looks like a forest, planted by accident, slowly figuring itself out.</p>
+
+    <p>It looks like a scrapheap that has begun, very quietly, to think.</p>
+  </section>
+
+  <div class="section-break">· · ·</div>
+
+  <!-- ========== REFERENCES ========== -->
+  <section class="references">
+    <h3>References &amp; Further Reading</h3>
+    <ol>
+      <li id="ref1">von Neumann, J., &amp; Burks, A. W. <em>Theory of Self-Reproducing Automata</em>. University of Illinois Press, 1966. The posthumous compilation of the Hixon and Illinois lectures.</li>
+      <li id="ref2">For a current synthesis of biological abiogenesis, see Sutherland, J. D. "<em>Studies on the origin of life — the end of the beginning.</em>" <em>Nature Reviews Chemistry</em> 1, 0012 (2017).</li>
+      <li id="ref3">Ray, T. S. "<em>An approach to the synthesis of life.</em>" In <em>Artificial Life II</em>, Addison-Wesley, 1991. The original Tierra paper.</li>
+      <li id="ref4">Fontana, W. "<em>Algorithmic chemistry.</em>" In <em>Artificial Life II</em>, Addison-Wesley, 1991. Also Fontana &amp; Buss, "<em>The arrival of the fittest,</em>" <em>Bulletin of Mathematical Biology</em> 56(1), 1994.</li>
+      <li id="ref5">Zykov, V., Mytilinaios, E., Adams, B., &amp; Lipson, H. "<em>Self-reproducing machines.</em>" <em>Nature</em> 435, 163–164 (2005).</li>
+      <li id="ref6">Freitas, R. A., Healy, T. J., &amp; Long, J. E. "<em>Advanced Automation for Space Missions.</em>" NASA Conference Publication 2255, 1980. See especially the lunar manufacturing and closure-factor discussions.</li>
+      <li id="ref7">Freitas, R. A., &amp; Merkle, R. C. <em>Kinematic Self-Replicating Machines</em>. Landes Bioscience, 2004. The definitive modern survey; the lunar-factory sections discuss 100-ton seed-factory baselines and closure constraints.</li>
+      <li id="ref8">Bowyer, A. "<em>3D printing and humanity's first imperfect replicator.</em>" <em>3D Printing and Additive Manufacturing</em> 1(1), 2014. The retrospective on RepRap; project documentation commonly describes RepRap as printing most, but not all, of its own parts.</li>
+      <li id="ref9">Lackner, K. S., &amp; Wendt, C. H. "<em>Exponential growth of large self-reproducing machine systems.</em>" <em>Mathematical and Computer Modelling</em> 21(10), 1995.</li>
+      <li id="ref10">Martin, W., &amp; Russell, M. J. "<em>On the origin of biochemistry at an alkaline hydrothermal vent.</em>" <em>Philosophical Transactions of the Royal Society B</em> 362, 2007.</li>
+      <li id="ref11">Jacob, F. "<em>Evolution and tinkering.</em>" <em>Science</em> 196 (4295), 1977.</li>
+      <li id="ref12">Forti, V., Baldé, C. P., Kuehr, R., &amp; Bel, G. <em>The Global E-waste Monitor 2024</em>. UNITAR / ITU. Reports 62 million tonnes of e-waste generated in 2022 and projects 82 million tonnes by 2030.</li>
+      <li id="ref13">Lane, N. <em>The Vital Question: Energy, Evolution, and the Origins of Complex Life</em>. W. W. Norton, 2015.</li>
+      <li id="ref14">Sagan, L. (Margulis, L.) "<em>On the origin of mitosing cells.</em>" <em>Journal of Theoretical Biology</em> 14(3), 1967.</li>
+      <li id="ref15">Spang, A. et al. "<em>Complex archaea that bridge the gap between prokaryotes and eukaryotes.</em>" <em>Nature</em> 521, 2015. The original Lokiarchaeota / Asgard-archaea report; later work has refined the placement of the eukaryotic host within or near Asgard archaea.</li>
+      <li id="ref16">Keeling, P. J. "<em>The number, speed, and impact of plastid endosymbioses in eukaryotic evolution.</em>" <em>Annual Review of Plant Biology</em> 64, 2013.</li>
+      <li id="ref17">Knoll, A. H. "<em>The multiple origins of complex multicellularity.</em>" <em>Annual Review of Earth and Planetary Sciences</em> 39, 2011.</li>
+      <li id="ref18">Sender, R., Fuchs, S., &amp; Milo, R. "<em>Revised estimates for the number of human and bacteria cells in the body.</em>" <em>PLOS Biology</em> 14(8), 2016. Revises the old “ten-to-one” claim downward to roughly comparable human and bacterial cell counts.</li>
+    </ol>
+  </section>
+
+</article>
+
+<footer class="coda">
+  <div class="ornament">❦ &nbsp; · &nbsp; ❦ &nbsp; · &nbsp; ❦</div>
+  <div>End of Essay · No. 01 · 2026</div>
+  <div style="margin-top: 0.6rem; opacity: 0.7;">Set in Fraunces, Newsreader &amp; JetBrains Mono · Printed on the open web</div>
+</footer>
+
+<script>
+  // simple in-view fade
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in-view');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.chapter, figure.diagram, .pullquote').forEach(el => obs.observe(el));
+  }
+</script>
+
+</body>
+</html>
