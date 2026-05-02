@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Leaving Earth: She is the Darkness on corporate and research presence in space, from biological risk to group dynamics, mission constraints, installations, and return." />
+  <title>Leaving Earth — She is the Darkness</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --void: #020307;
+      --deep: #060914;
+      --ink: #f4f1e8;
+      --muted: #b9b7b0;
+      --soft: rgba(244, 241, 232, 0.74);
+      --line: rgba(244, 241, 232, 0.18);
+      --line-strong: rgba(244, 241, 232, 0.34);
+      --gold: #d9b56f;
+      --blue: #91c5ff;
+      --lunar: #d7d0c0;
+      --max: 1180px;
+      --serif: Georgia, 'Times New Roman', Times, serif;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 78% 0%, rgba(145,197,255,0.18), transparent 30rem),
+        radial-gradient(circle at 22% 100%, rgba(217,181,111,0.13), transparent 34rem),
+        linear-gradient(180deg, #020307 0%, #070914 48%, #07070d 100%);
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    a:hover { color: var(--gold); }
+
+    .site-header {
+      position: fixed;
+      z-index: 20;
+      inset: 0 0 auto;
+      border-bottom: 1px solid rgba(244, 241, 232, 0.10);
+      background: linear-gradient(180deg, rgba(2,3,7,0.86), rgba(2,3,7,0.34));
+      backdrop-filter: blur(18px);
+    }
+
+    .nav, .hero-inner, .section-inner, .footer-inner {
+      width: 100%;
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    .nav {
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .brand-mark {
+      width: 2.1rem;
+      height: 2.1rem;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      position: relative;
+      box-shadow: inset -0.55rem 0 0 rgba(244,241,232,0.08), 0 0 2rem rgba(217,181,111,0.14);
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      width: 0.34rem;
+      height: 0.34rem;
+      border-radius: 999px;
+      right: -0.25rem;
+      top: 0.28rem;
+      background: var(--blue);
+      box-shadow: 0 0 1.2rem rgba(145,197,255,0.75);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.25rem;
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      align-items: end;
+      padding: 9rem 1.25rem 5.5rem;
+      position: relative;
+      isolation: isolate;
+      background:
+        linear-gradient(90deg, rgba(2,3,7,0.96) 0%, rgba(2,3,7,0.76) 43%, rgba(2,3,7,0.28) 72%, rgba(2,3,7,0.76) 100%),
+        linear-gradient(180deg, rgba(2,3,7,0.18), rgba(2,3,7,0.96)),
+        url("assets/iss-cupola-earth-web.jpg") right center / cover no-repeat;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow, .section-kicker, .asset-credit, .tag, .small-label {
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .eyebrow {
+      margin: 0 0 1.1rem;
+      color: var(--gold);
+      font-size: clamp(0.72rem, 1.4vw, 0.84rem);
+    }
+
+    h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; }
+
+    h1 {
+      max-width: 930px;
+      font-size: clamp(4.6rem, 13vw, 12rem);
+      line-height: 0.88;
+      letter-spacing: -0.065em;
+    }
+
+    .hero-copy {
+      max-width: 730px;
+      margin: 2rem 0 0;
+      font-family: var(--serif);
+      font-size: clamp(1.25rem, 2.3vw, 2.05rem);
+      line-height: 1.27;
+      color: var(--soft);
+    }
+
+    .asset-credit {
+      max-width: 760px;
+      margin-top: 1.15rem;
+      color: rgba(244,241,232,0.42);
+      font-size: 0.66rem;
+      line-height: 1.5;
+    }
+
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 2.1rem; }
+
+    .button {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.82rem 1.05rem;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      background: rgba(244,241,232,0.06);
+      color: var(--ink);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .button:hover { transform: translateY(-1px); background: rgba(217,181,111,0.13); border-color: rgba(217,181,111,0.58); color: var(--ink); }
+    .button.secondary { color: var(--muted); background: transparent; }
+
+    main section { padding: clamp(5rem, 10vw, 9rem) 1.25rem; position: relative; }
+    .section-kicker { color: var(--muted); font-size: 0.72rem; margin-bottom: 1.1rem; }
+
+    h2 {
+      max-width: 950px;
+      font-size: clamp(2.5rem, 6.2vw, 5.9rem);
+      line-height: 0.98;
+      letter-spacing: -0.048em;
+      margin-bottom: 1.5rem;
+    }
+
+    .lead {
+      max-width: 790px;
+      margin: 0;
+      color: var(--soft);
+      font-size: clamp(1.05rem, 1.8vw, 1.32rem);
+      line-height: 1.66;
+    }
+
+    .two-up {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: clamp(2rem, 5vw, 5rem);
+      align-items: center;
+    }
+
+    .image-panel {
+      min-height: 560px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(2,3,7,0.06), rgba(2,3,7,0.78)),
+        url("assets/iss-metal-3d-printer-web.jpg") center / cover no-repeat;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      margin-top: 3.5rem;
+      border: 1px solid var(--line);
+      background: var(--line);
+    }
+
+    .card {
+      min-height: 250px;
+      padding: clamp(1.25rem, 2.7vw, 2.25rem);
+      background: linear-gradient(180deg, rgba(255,255,255,0.052), rgba(255,255,255,0.018));
+    }
+
+    .tag { color: var(--gold); font-size: 0.72rem; }
+    .card h3 { margin-top: 3.2rem; font-size: clamp(1.55rem, 2.8vw, 2.55rem); line-height: 1; letter-spacing: -0.035em; }
+    .card p, .card li { color: var(--muted); line-height: 1.6; }
+    .card ul { margin: 1rem 0 0; padding-left: 1.1rem; }
+
+    .mission {
+      background:
+        linear-gradient(90deg, rgba(2,3,7,0.98) 0%, rgba(2,3,7,0.88) 45%, rgba(2,3,7,0.42) 75%, rgba(2,3,7,0.86) 100%),
+        linear-gradient(180deg, rgba(2,3,7,0.58), rgba(2,3,7,0.96)),
+        url("assets/crew-dragon-splashdown-web.jpg") right center / cover no-repeat;
+      border-block: 1px solid var(--line);
+    }
+
+    .process {
+      max-width: 860px;
+      margin-top: 3rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 10rem 1fr;
+      gap: 2rem;
+      padding: 1.35rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .small-label { color: var(--lunar); font-size: 0.72rem; }
+    .step span { color: var(--soft); line-height: 1.65; }
+
+    .quote-band {
+      background: radial-gradient(circle at 16% 0%, rgba(217,181,111,0.14), transparent 28rem), linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.045));
+      border-block: 1px solid var(--line);
+    }
+
+    .quote {
+      max-width: 1050px;
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 5.3vw, 5.2rem);
+      line-height: 1.04;
+      letter-spacing: -0.045em;
+    }
+
+    .contact {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: clamp(2rem, 5vw, 5rem);
+      align-items: end;
+    }
+
+    .signal-card {
+      border: 1px solid var(--line);
+      padding: clamp(1.5rem, 4vw, 3rem);
+      background: rgba(255,255,255,0.035);
+    }
+
+    .signal-card p { color: var(--soft); line-height: 1.65; margin: 0 0 1.5rem; }
+    .address { font-family: var(--mono); color: var(--gold); overflow-wrap: anywhere; }
+
+    footer { padding: 2rem 1.25rem 3rem; color: rgba(244,241,232,0.48); font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 1rem; border-top: 1px solid var(--line); padding-top: 1.5rem; }
+
+    @media (max-width: 860px) {
+      .nav { align-items: flex-start; }
+      .nav-links { display: none; }
+      .hero { padding-top: 7rem; }
+      .two-up, .grid, .contact { grid-template-columns: 1fr; }
+      .image-panel { min-height: 360px; }
+      .step { grid-template-columns: 1fr; gap: 0.45rem; }
+      .footer-inner { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: 0.001ms !important; animation-duration: 0.001ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" aria-label="Site navigation">
+    <nav class="nav">
+      <a class="brand" href="index.html" aria-label="She is the Darkness home"><span class="brand-mark" aria-hidden="true"></span><span>She is the Darkness</span></a>
+      <div class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="#biology">Biology</a>
+        <a href="#cohabitation">Co-habitation</a>
+        <a href="#mission">Mission arc</a>
+        <a href="#signal">Signal</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <p class="eyebrow">Space presence • operational trust • human systems</p>
+        <h1 id="hero-title">Leaving Earth</h1>
+        <p class="hero-copy">The phrase is deliberately too large. As travel to orbit becomes more common, the question changes from “can we send an experiment?” to “can we send people, equipment, procedures, and business intent through a complete operational arc and bring the value home?”</p>
+        <p class="asset-credit">Visual: Canadian Space Agency astronaut David Saint-Jacques photographs Earth from the International Space Station cupola. NASA image.</p>
+        <div class="hero-actions" aria-label="Hero actions">
+          <a class="button" href="#mission">Follow the arc</a>
+          <a class="button secondary" href="#limitations">Name the limits</a>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="presence-title">
+      <div class="section-inner two-up">
+        <div>
+          <p class="section-kicker">A different dynamic</p>
+          <h2 id="presence-title">Space presence becomes a managed condition, not a single payload.</h2>
+          <p class="lead">A corporation may want to send a research team, manufacturing equipment, trained operators, or a hybrid installation whose value depends on exact handling. That requires an experienced array of professionals who can vet the mission from launch to splashdown: technical readiness, human performance, procedural accuracy, risk, compliance, installation quality, and return on investment.</p>
+        </div>
+        <div>
+          <div class="image-panel" role="img" aria-label="Space station manufacturing hardware"></div>
+          <p class="asset-credit">Visual: Metal 3D printer aboard the International Space Station manufacturing experimental samples. NASA image.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="biology" aria-labelledby="biology-title">
+      <div class="section-inner">
+        <p class="section-kicker">Human biology</p>
+        <h2 id="biology-title">Every body is part of the mission system.</h2>
+        <p class="lead">Presence in space is not only a transport problem. It is a changing biological state, observed over time and managed with discipline. The work begins before launch and continues after return.</p>
+        <div class="grid">
+          <article class="card">
+            <p class="tag">01</p>
+            <h3>Changes over time</h3>
+            <p>Bone, muscle, fluid distribution, vision, sleep, immunity, microbiome, cognition, stress response, and recovery are not side issues. They shape personnel selection, timelines, workload, and measurement.</p>
+          </article>
+          <article class="card">
+            <p class="tag">02</p>
+            <h3>Mitigations</h3>
+            <p>Exercise, nutrition, medical monitoring, radiation posture, sleep discipline, suit/interface design, workload management, and post-flight rehabilitation must be treated as mission architecture.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="cohabitation" aria-labelledby="cohabitation-title">
+      <div class="section-inner">
+        <p class="section-kicker">Clustered co-habitation</p>
+        <h2 id="cohabitation-title">The smallest culture matters when there is nowhere else to go.</h2>
+        <p class="lead">Orbit, lunar surface work, and future commercial stations compress people, machines, schedules, and stakes into close quarters. Tolerant systems and honest communication are not soft requirements; they are operational infrastructure.</p>
+        <div class="grid">
+          <article class="card">
+            <p class="tag">03</p>
+            <h3>Established tolerant systems</h3>
+            <ul>
+              <li>clear authority without needless dominance</li>
+              <li>redundant communication paths</li>
+              <li>privacy, rest, and conflict-decompression norms</li>
+              <li>procedures that survive fatigue and ambiguity</li>
+            </ul>
+          </article>
+          <article class="card">
+            <p class="tag">04</p>
+            <h3>Effective group dynamics</h3>
+            <ul>
+              <li>screening for compatibility and learning posture</li>
+              <li>team rehearsal under realistic constraint</li>
+              <li>shared language for risk, error, and repair</li>
+              <li>honest communication before the situation becomes fragile</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="mission" class="mission" aria-labelledby="mission-title">
+      <div class="section-inner">
+        <p class="section-kicker">From launch to splashdown</p>
+        <h2 id="mission-title">Return on investment depends on every handoff.</h2>
+        <p class="lead">The future customer is not only buying access to space. They are buying confidence that their people, hardware, samples, data, installation procedures, and commercial purpose survive the whole chain with accuracy intact.</p>
+        <p class="asset-credit">Visual: SpaceX Demo-1 Crew Dragon approaches splashdown in the Atlantic Ocean. NASA/Kim Shiflett image.</p>
+        <div class="process" aria-label="Operational arc">
+          <div class="step"><strong class="small-label">Design</strong><span>Define the business intent, research objective, human needs, hardware constraints, and acceptable failure boundaries before the mission becomes expensive.</span></div>
+          <div class="step"><strong class="small-label">Vet</strong><span>Review personnel, biological risks, training, interfaces, tools, procedures, communication paths, and regulatory restrictions with qualified domain specialists.</span></div>
+          <div class="step"><strong class="small-label">Install</strong><span>Protect procedural accuracy when equipment is deployed, serviced, used, observed, repaired, or returned by operators in constrained conditions.</span></div>
+          <div class="step"><strong class="small-label">Return</strong><span>Close the loop: samples, telemetry, lessons, health data, financial performance, and operational findings must come back in a form the organization can use.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="limitations" aria-labelledby="limitations-title">
+      <div class="section-inner">
+        <p class="section-kicker">Limitations and restrictions</p>
+        <h2 id="limitations-title">Openness is not the absence of boundaries.</h2>
+        <p class="lead">Bringing more people along requires naming the limits clearly: launch cadence, mass, volume, crew time, medical risk, radiation, power, data, export controls, planetary protection, insurance, intellectual property, safety certification, and the hard fact that not every valuable Earth-side process belongs in orbit.</p>
+        <div class="grid">
+          <article class="card">
+            <p class="tag">05</p>
+            <h3>Restrictions shape design</h3>
+            <p>Constraint is not merely red tape. It can reveal the simplest viable experiment, the safest operator profile, the right automation boundary, or the reason to wait.</p>
+          </article>
+          <article class="card">
+            <p class="tag">06</p>
+            <h3>Not everyone goes; everyone can learn</h3>
+            <p>The inclusive goal is not pretending space is easy. It is building processes that let more organizations participate responsibly, with realistic expectations and shared benefit.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="quote-band" aria-labelledby="quote-title">
+      <div class="section-inner">
+        <p class="section-kicker">Position</p>
+        <h2 id="quote-title" class="quote">Leaving Earth is not escape. It is the careful extension of responsibility into a less forgiving environment.</h2>
+      </div>
+    </section>
+
+    <section id="signal" aria-labelledby="signal-title">
+      <div class="section-inner contact">
+        <div>
+          <p class="section-kicker">Signal</p>
+          <h2 id="signal-title">For organizations preparing to send work, people, or purpose beyond the atmosphere.</h2>
+        </div>
+        <aside class="signal-card" aria-label="Contact card">
+          <p>She is the Darkness is developing this branch as a public vision for space presence: biology, co-habitation, operational vetting, installation accuracy, restrictions, and return.</p>
+          <a class="address" href="mailto:darkness.she.is@gmail.com">darkness.she.is@gmail.com</a>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span><a href="index.html">She is the Darkness</a></span>
+      <span>Leaving Earth • Space presence</span>
+    </div>
+  </footer>
+</body>
+</html>

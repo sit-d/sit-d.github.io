@@ -8,7 +8,7 @@ The initial site direction is cinematic, restrained, and exploratory:
 
 - dark lunar/space atmosphere without generic SaaS visuals
 - editorial typography inspired by field notes and scientific wonder
-- copy centered on patient discovery, lunar economic opportunities, dust mitigation, materials, maintenance, and manufacturing
+- copy centered on patient discovery, lunar economic opportunities, dust mitigation, materials, maintenance, manufacturing, and emerging space presence
 - no invented claims, fake metrics, testimonials, or premature contact details
 
 ## Local preview
@@ -28,6 +28,11 @@ http://127.0.0.1:4173/
 ## Deployment note
 
 This is a static site. GitHub Pages can serve it directly from the repository root once Pages is enabled/configured for the account/repository.
+
+## Pages
+
+- `index.html` — public landing page and lunar economic opportunity positioning.
+- `leaving-earth.html` — space-presence branch: corporate research/manufacturing missions, human biology, co-habitation, restrictions, and full mission-process vetting.
 
 ## Next content decisions
 
