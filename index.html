@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="She is the Darkness researches forward-looking economic opportunities in space, from lunar infrastructure to materials, manufacturing, and discovery." />
+  <title>She is the Darkness</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --void: #020307;
+      --deep: #060914;
+      --ink: #f4f1e8;
+      --muted: #b9b7b0;
+      --soft: rgba(244, 241, 232, 0.72);
+      --line: rgba(244, 241, 232, 0.18);
+      --line-strong: rgba(244, 241, 232, 0.34);
+      --gold: #d9b56f;
+      --blue: #91c5ff;
+      --lunar: #d7d0c0;
+      --max: 1180px;
+      --serif: Georgia, 'Times New Roman', Times, serif;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 50% 105%, rgba(217, 181, 111, 0.18), transparent 34rem),
+        radial-gradient(circle at 78% 8%, rgba(145, 197, 255, 0.16), transparent 28rem),
+        radial-gradient(circle at 18% 12%, rgba(215, 208, 192, 0.10), transparent 18rem),
+        linear-gradient(180deg, #020307 0%, #050712 44%, #090811 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.72;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.90) 0 1px, transparent 1.3px),
+        radial-gradient(circle, rgba(255,255,255,0.52) 0 1px, transparent 1.2px),
+        radial-gradient(circle, rgba(217,181,111,0.55) 0 1px, transparent 1.2px);
+      background-size: 170px 170px, 260px 260px, 390px 390px;
+      background-position: 18px 34px, 70px 120px, 210px 20px;
+      mask-image: linear-gradient(to bottom, black 0%, black 72%, transparent 100%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    a:hover { color: var(--gold); }
+
+    .site-header {
+      position: fixed;
+      z-index: 20;
+      top: 0;
+      left: 0;
+      right: 0;
+      border-bottom: 1px solid rgba(244, 241, 232, 0.10);
+      background: linear-gradient(180deg, rgba(2,3,7,0.84), rgba(2,3,7,0.34));
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .brand-mark {
+      width: 2.1rem;
+      height: 2.1rem;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      position: relative;
+      box-shadow: inset -0.55rem 0 0 rgba(244,241,232,0.08), 0 0 2rem rgba(217,181,111,0.14);
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      width: 0.34rem;
+      height: 0.34rem;
+      border-radius: 999px;
+      right: -0.25rem;
+      top: 0.28rem;
+      background: var(--blue);
+      box-shadow: 0 0 1.2rem rgba(145,197,255,0.75);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      align-items: end;
+      position: relative;
+      padding: 9.5rem 1.25rem 5.5rem;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: auto -14vw -28vw -14vw;
+      height: min(62vw, 760px);
+      border-radius: 50% 50% 0 0;
+      background:
+        radial-gradient(circle at 50% 8%, rgba(244,241,232,0.88) 0 0.15%, transparent 0.22%),
+        radial-gradient(circle at 52% 0%, rgba(244,241,232,0.18), transparent 22%),
+        radial-gradient(ellipse at 50% 18%, rgba(215,208,192,0.92), rgba(102,98,91,0.62) 36%, rgba(30,29,31,0.48) 64%, transparent 72%);
+      box-shadow: 0 -2rem 7rem rgba(215,208,192,0.08);
+      opacity: 0.98;
+    }
+
+    .hero-inner, .section-inner, .footer-inner {
+      max-width: var(--max);
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      font-family: var(--mono);
+      color: var(--gold);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-size: clamp(0.72rem, 1.4vw, 0.84rem);
+      margin: 0 0 1.2rem;
+    }
+
+    h1 {
+      max-width: 980px;
+      margin: 0;
+      font-family: var(--serif);
+      font-weight: 400;
+      line-height: 0.94;
+      letter-spacing: -0.055em;
+      font-size: clamp(4rem, 12vw, 10.6rem);
+    }
+
+    .hero-copy {
+      max-width: 680px;
+      margin-top: 2rem;
+      font-family: var(--serif);
+      font-size: clamp(1.25rem, 2.3vw, 2.05rem);
+      line-height: 1.26;
+      color: var(--soft);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-top: 2.1rem;
+    }
+
+    .button {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.82rem 1.05rem;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      background: rgba(244,241,232,0.06);
+      color: var(--ink);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      background: rgba(217,181,111,0.13);
+      border-color: rgba(217,181,111,0.58);
+      color: var(--ink);
+    }
+
+    .button.secondary {
+      color: var(--muted);
+      background: transparent;
+    }
+
+    main section {
+      padding: clamp(5rem, 10vw, 9rem) 1.25rem;
+      position: relative;
+    }
+
+    .section-kicker {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 1.1rem;
+    }
+
+    h2 {
+      max-width: 900px;
+      margin: 0 0 1.5rem;
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 6vw, 5.8rem);
+      font-weight: 400;
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .lead {
+      max-width: 760px;
+      font-size: clamp(1.05rem, 1.8vw, 1.32rem);
+      line-height: 1.65;
+      color: var(--soft);
+      margin: 0;
+    }
+
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 3.8rem;
+      border: 1px solid var(--line);
+      background: var(--line);
+    }
+
+    .principle {
+      min-height: 260px;
+      padding: clamp(1.25rem, 2.5vw, 2.2rem);
+      background: linear-gradient(180deg, rgba(255,255,255,0.048), rgba(255,255,255,0.018));
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .number {
+      font-family: var(--mono);
+      color: var(--gold);
+      letter-spacing: 0.18em;
+      font-size: 0.76rem;
+    }
+
+    .principle h3 {
+      margin: 3rem 0 0.85rem;
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(1.55rem, 2.6vw, 2.45rem);
+      line-height: 1;
+      letter-spacing: -0.035em;
+    }
+
+    .principle p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.58;
+    }
+
+    .horizon {
+      min-height: 92svh;
+      display: grid;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .horizon::before {
+      content: "";
+      position: absolute;
+      inset: 8% -10% auto auto;
+      width: min(52vw, 690px);
+      aspect-ratio: 1;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 36% 28%, rgba(255,255,255,0.78), transparent 0.35%),
+        radial-gradient(circle at 50% 50%, rgba(145,197,255,0.26), rgba(217,181,111,0.08) 32%, rgba(255,255,255,0.02) 51%, transparent 68%);
+      border: 1px solid rgba(244,241,232,0.10);
+      filter: blur(0.2px);
+      opacity: 0.78;
+    }
+
+    .opportunity-list {
+      max-width: 830px;
+      margin-top: 3rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .opportunity {
+      display: grid;
+      grid-template-columns: 11rem 1fr;
+      gap: 2rem;
+      padding: 1.35rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .opportunity strong {
+      font-family: var(--mono);
+      color: var(--lunar);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .opportunity span {
+      color: var(--soft);
+      line-height: 1.62;
+    }
+
+    .manifesto {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.045)),
+        radial-gradient(circle at 16% 0%, rgba(217,181,111,0.14), transparent 28rem);
+      border-block: 1px solid var(--line);
+    }
+
+    .quote {
+      max-width: 1000px;
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5.2vw, 5.15rem);
+      line-height: 1.04;
+      letter-spacing: -0.045em;
+      color: var(--ink);
+    }
+
+    .quote-note {
+      max-width: 600px;
+      margin-top: 2rem;
+      color: var(--muted);
+      line-height: 1.62;
+    }
+
+    .contact {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: clamp(2rem, 5vw, 5rem);
+      align-items: end;
+    }
+
+    .signal-card {
+      border: 1px solid var(--line);
+      padding: clamp(1.5rem, 4vw, 3rem);
+      background: rgba(255,255,255,0.035);
+    }
+
+    .signal-card p {
+      color: var(--soft);
+      line-height: 1.65;
+      margin: 0 0 1.5rem;
+    }
+
+    .address {
+      font-family: var(--mono);
+      color: var(--gold);
+      overflow-wrap: anywhere;
+    }
+
+    footer {
+      padding: 2rem 1.25rem 3rem;
+      color: rgba(244,241,232,0.48);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      border-top: 1px solid var(--line);
+      padding-top: 1.5rem;
+    }
+
+    @media (max-width: 820px) {
+      .nav { align-items: flex-start; }
+      .nav-links { display: none; }
+      .hero { padding-top: 7rem; }
+      .principles { grid-template-columns: 1fr; }
+      .principle { min-height: 220px; }
+      .opportunity { grid-template-columns: 1fr; gap: 0.45rem; }
+      .contact { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: 0.001ms !important; animation-duration: 0.001ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" aria-label="Site navigation">
+    <nav class="nav">
+      <a class="brand" href="#top" aria-label="She is the Darkness home"><span class="brand-mark" aria-hidden="true"></span><span>She is the Darkness</span></a>
+      <div class="nav-links" aria-label="Primary">
+        <a href="#purpose">Purpose</a>
+        <a href="#horizon">Horizon</a>
+        <a href="#signal">Signal</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <p class="eyebrow">Lunar economy • patient discovery • first principles</p>
+        <h1 id="hero-title">The dark is where the future becomes visible.</h1>
+        <p class="hero-copy">She is the Darkness studies the economic frontier beyond Earth: the practical work, unexpected materials, and quiet infrastructure that may define a civilization with boots on lunar ground.</p>
+        <div class="hero-actions" aria-label="Hero actions">
+          <a class="button" href="#purpose">Begin the survey</a>
+          <a class="button secondary" href="#horizon">Explore the horizon</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="purpose" aria-labelledby="purpose-title">
+      <div class="section-inner">
+        <p class="section-kicker">Purpose</p>
+        <h2 id="purpose-title">Wonder, disciplined into preparation.</h2>
+        <p class="lead">We are preparing for markets that cannot be fully known from Earth. The premise is simple: some opportunities in space will only become obvious when capable people are present, measuring, clearing, building, repairing, and asking better questions.</p>
+        <div class="principles">
+          <article class="principle">
+            <div class="number">01</div>
+            <div>
+              <h3>Observe before claiming.</h3>
+              <p>We favor evidence, field reports, and bounded hypotheses over loud certainty. The unknown is not a branding device; it is the terrain.</p>
+            </div>
+          </article>
+          <article class="principle">
+            <div class="number">02</div>
+            <div>
+              <h3>Build from humble work.</h3>
+              <p>Clearing dust, moving material, maintaining power, and fabricating spare parts may be as consequential as any grand architecture.</p>
+            </div>
+          </article>
+          <article class="principle">
+            <div class="number">03</div>
+            <div>
+              <h3>Keep awe useful.</h3>
+              <p>The Sagan-like sense of wonder matters because it lengthens our time horizon while keeping us honest about scale, fragility, and responsibility.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="horizon" class="horizon" aria-labelledby="horizon-title">
+      <div class="section-inner">
+        <p class="section-kicker">The horizon</p>
+        <h2 id="horizon-title">The moon is not a metaphor. It is a job site we do not yet understand.</h2>
+        <p class="lead">Our research map begins with near-practical domains: lunar dust mitigation, regolith handling, power-adjacent services, local manufacturing, sensing, logistics, and the long tail of problems that emerge only after sustained presence.</p>
+        <div class="opportunity-list" aria-label="Research domains">
+          <div class="opportunity"><strong>Dust</strong><span>Solar-powered electrostatic and electrodynamic collection or clearing systems for habitats, instruments, suits, roads, and machines.</span></div>
+          <div class="opportunity"><strong>Materials</strong><span>Regolith sorting, feedstock preparation, sintering, shielding, glass, ceramics, metals, and the economic thresholds for using what is already there.</span></div>
+          <div class="opportunity"><strong>Labor</strong><span>Maintenance, inspection, setup, safety, cleaning, assembly, and field improvisation: the overlooked work that makes every other ambition possible.</span></div>
+          <div class="opportunity"><strong>Discovery</strong><span>Unknown niches uncovered by trained personnel on site, where measurement and commerce begin as the same act of attention.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="manifesto" aria-labelledby="manifesto-title">
+      <div class="section-inner">
+        <p class="section-kicker">Position</p>
+        <h2 id="manifesto-title" class="quote">We are not selling a fantasy of space. We are preparing for the first quiet industries of another world.</h2>
+        <p class="quote-note">This site is the public signal for that work: elegant, sober, curious, and forward-looking. It should feel less like a launch campaign and more like the opening page of a field notebook from the future.</p>
+      </div>
+    </section>
+
+    <section id="signal" aria-labelledby="signal-title">
+      <div class="section-inner contact">
+        <div>
+          <p class="section-kicker">Signal</p>
+          <h2 id="signal-title">For patient capital, technical collaborators, and explorers of the practical unknown.</h2>
+        </div>
+        <aside class="signal-card" aria-label="Contact card">
+          <p>She is the Darkness is forming its public research presence. The next version of this site should add founder notes, research briefs, and a contact pathway once the preferred public address is chosen.</p>
+          <div class="address">contact channel: pending</div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>She is the Darkness</span>
+      <span>Economic opportunities in space</span>
+    </div>
+  </footer>
+</body>
+</html>
