@@ -33,6 +33,8 @@ This is a static site. GitHub Pages can serve it directly from the repository ro
 
 - `index.html` — public landing page and lunar economic opportunity positioning.
 - `leaving-earth.html` — space-presence branch: corporate research/manufacturing missions, human biology, co-habitation, restrictions, and full mission-process vetting.
+- `ffmpeg-workflow-map.html` — interactive FFmpeg intrinsic/LLVM workflow map with editable/drop-in JSON spec.
+- `ffmpeg-workflow-map.json` — source workflow spec for the FFmpeg map.
 
 ## Next content decisions
 

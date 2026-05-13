@@ -1,0 +1,564 @@
+{
+  "title": "FFmpeg intrinsic / LLVM implementation workflow map",
+  "subtitle": "Inferred from /home/bitrake/ffmpeg-intrinsic-llvm after fetching latest upstream master.",
+  "generated_at": "2026-05-13T12:39:53Z",
+  "repo": "/home/bitrake/ffmpeg-intrinsic-llvm",
+  "baseline_worktree": "/home/bitrake/ffmpeg-main-baseline",
+  "branches": {
+    "upstream_master": "4851060ccd28",
+    "ffmpeg-main/latest": "4851060ccd28",
+    "ggmpeg": "3e4a46c42ec8",
+    "intrinsic/llvm-implementations": "3e4a46c42ec8",
+    "upstream_only_commits": "8",
+    "branch_only_commits": "312"
+  },
+  "components": [
+    {
+      "id": "branch-upstream",
+      "label": "Upstream baseline",
+      "package": "upstream/master",
+      "type": "external",
+      "x": 80,
+      "y": 70,
+      "description": "Latest fetched FFmpeg master at 4851060ccd28; local ffmpeg-main/latest points here.",
+      "metrics": {
+        "commit": "4851060ccd28"
+      }
+    },
+    {
+      "id": "branch-ggmpeg",
+      "label": "Intrinsic / LLVM branch",
+      "package": "ggmpeg + intrinsic/llvm-implementations",
+      "type": "security",
+      "x": 80,
+      "y": 205,
+      "description": "Shared rolling branch for NASM-removal, intrinsic, LLVM-lowering, and R5 fallback work at 3e4a46c42ec8.",
+      "metrics": {
+        "commit": "3e4a46c42ec8",
+        "upstream_only_commits": "8",
+        "branch_only_commits": "312"
+      }
+    },
+    {
+      "id": "fftools",
+      "label": "CLI frontends",
+      "package": "fftools",
+      "type": "frontend",
+      "x": 360,
+      "y": 70,
+      "description": "ffmpeg/ffprobe entrypoints drive demux, decode, filter, encode, mux orchestration.",
+      "metrics": {
+        "c_h_files": 46,
+        "asm_files": 0
+      }
+    },
+    {
+      "id": "libavformat",
+      "label": "Container I/O",
+      "package": "libavformat",
+      "type": "backend",
+      "x": 620,
+      "y": 70,
+      "description": "Demuxers/muxers, protocols, packetized I/O, stream metadata, and timestamp plumbing.",
+      "metrics": {
+        "c_h_files": 711,
+        "asm_files": 0
+      }
+    },
+    {
+      "id": "libavcodec",
+      "label": "Codecs + DSP",
+      "package": "libavcodec",
+      "type": "backend",
+      "x": 880,
+      "y": 70,
+      "description": "Codec implementations plus architecture-specific DSP dispatch; main high-volume NASM/intrinsic migration surface.",
+      "metrics": {
+        "c_h_files": 2427,
+        "asm_files": 289
+      }
+    },
+    {
+      "id": "libavfilter",
+      "label": "Filter graphs",
+      "package": "libavfilter",
+      "type": "backend",
+      "x": 620,
+      "y": 210,
+      "description": "Audio/video filter graph execution, including x86-accelerated filters and AVX-512 research candidates.",
+      "metrics": {
+        "c_h_files": 729,
+        "asm_files": 46
+      }
+    },
+    {
+      "id": "libswscale",
+      "label": "Pixel conversion",
+      "package": "libswscale",
+      "type": "database",
+      "x": 880,
+      "y": 210,
+      "description": "Scaling, colorspace conversion, planar/packed pixel transforms; active R2/R2.5/R5 campaign area.",
+      "metrics": {
+        "c_h_files": 114,
+        "asm_files": 32
+      }
+    },
+    {
+      "id": "libswresample",
+      "label": "Audio conversion",
+      "package": "libswresample",
+      "type": "database",
+      "x": 1140,
+      "y": 210,
+      "description": "Resampling and audio format conversion with x86 intrinsic coverage already present in this branch.",
+      "metrics": {
+        "c_h_files": 35,
+        "asm_files": 7
+      }
+    },
+    {
+      "id": "libavutil",
+      "label": "Shared primitives",
+      "package": "libavutil",
+      "type": "database",
+      "x": 620,
+      "y": 350,
+      "description": "Common math, frame/buffer primitives, CPU flags, memops, and utility DSP helpers.",
+      "metrics": {
+        "c_h_files": 416,
+        "asm_files": 29
+      }
+    },
+    {
+      "id": "tests-checkasm",
+      "label": "checkasm",
+      "package": "tests/checkasm",
+      "type": "message",
+      "x": 880,
+      "y": 350,
+      "description": "Focused correctness and same-tier microbenchmark harness for DSP functions and dispatch routes.",
+      "metrics": {
+        "c_h_files": 101,
+        "asm_files": 4
+      }
+    },
+    {
+      "id": "fate",
+      "label": "FATE/regression tests",
+      "package": "tests/fate + tests/ref",
+      "type": "message",
+      "x": 1140,
+      "y": 350,
+      "description": "Broader functional regression suite comparing command output and reference media behavior.",
+      "metrics": {
+        "c_h_files": 117,
+        "asm_files": 4
+      }
+    },
+    {
+      "id": "nasm-oracle",
+      "label": "NASM/x86inc oracle",
+      "package": "lib*/x86/*.asm",
+      "type": "security",
+      "x": 360,
+      "y": 350,
+      "description": "Original hand assembly remains the performance/correctness oracle until replacements are proven.",
+      "metrics": {
+        "c_h_files": 146,
+        "asm_files": 112
+      }
+    },
+    {
+      "id": "llvm-codegen",
+      "label": "LLVM/Clang codegen",
+      "package": "clang + llvm-objdump",
+      "type": "cloud",
+      "x": 360,
+      "y": 490,
+      "description": "Compiler lowering target: R0/R1 shaped C, R2/R2.5 intrinsics, then documented LLVM gaps/R5 only when measured.",
+      "metrics": {
+        "c_h_files": 0,
+        "asm_files": 0
+      }
+    },
+    {
+      "id": "docs-hermes",
+      "label": "Hermes migration docs",
+      "package": "doc/hermes",
+      "type": "external",
+      "x": 620,
+      "y": 490,
+      "description": "Campaign policy, inventory, backlog, branch notes, gap reports, and generated workflow map.",
+      "metrics": {
+        "c_h_files": 0,
+        "asm_files": 0
+      }
+    },
+    {
+      "id": "no-x86asm-build",
+      "label": "No-x86asm build lane",
+      "package": "configure --disable-x86asm",
+      "type": "cloud",
+      "x": 880,
+      "y": 490,
+      "description": "Audit lane proving intrinsic/C replacements compile and dispatch when NASM is unavailable.",
+      "metrics": {
+        "c_h_files": 27,
+        "asm_files": 0
+      }
+    },
+    {
+      "id": "bench-artifacts",
+      "label": "Bench artifacts",
+      "package": "compare.md / snapshots",
+      "type": "message",
+      "x": 1140,
+      "y": 490,
+      "description": "Paired NASM-vs-intrinsic bench outputs, disassembly notes, and route decisions.",
+      "metrics": {
+        "c_h_files": 0,
+        "asm_files": 0
+      }
+    }
+  ],
+  "flows": [
+    {
+      "id": "transcode-cli",
+      "label": "CLI transcode path",
+      "description": "End-to-end runtime path from ffmpeg command to container I/O, codec DSP, filtering, and mux output.",
+      "steps": [
+        {
+          "from": "fftools",
+          "to": "libavformat",
+          "label": "open input / demux packets",
+          "passes": {
+            "data": [
+              "AVFormatContext",
+              "AVPacket",
+              "stream metadata"
+            ]
+          }
+        },
+        {
+          "from": "libavformat",
+          "to": "libavcodec",
+          "label": "send packets to decoder",
+          "passes": {
+            "data": [
+              "compressed packets",
+              "codec parameters"
+            ]
+          }
+        },
+        {
+          "from": "libavcodec",
+          "to": "libavfilter",
+          "label": "decoded frames into graph",
+          "passes": {
+            "data": [
+              "AVFrame",
+              "time base",
+              "format/layout"
+            ]
+          }
+        },
+        {
+          "from": "libavfilter",
+          "to": "libswscale",
+          "label": "video format/scale where needed",
+          "passes": {
+            "data": [
+              "planes",
+              "strides",
+              "colorspace"
+            ]
+          }
+        },
+        {
+          "from": "libavfilter",
+          "to": "libswresample",
+          "label": "audio convert/resample where needed",
+          "passes": {
+            "data": [
+              "samples",
+              "layout",
+              "rate"
+            ]
+          }
+        },
+        {
+          "from": "libavfilter",
+          "to": "libavcodec",
+          "label": "encode filtered frames",
+          "passes": {
+            "data": [
+              "AVFrame",
+              "encoder options"
+            ]
+          }
+        },
+        {
+          "from": "libavcodec",
+          "to": "libavformat",
+          "label": "mux encoded packets",
+          "passes": {
+            "data": [
+              "AVPacket",
+              "timestamps",
+              "side data"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "intrinsic-migration",
+      "label": "Intrinsic / LLVM implementation lane",
+      "description": "How a handwritten assembly algorithm becomes a C/intrinsic/LLVM-shaped implementation while preserving NASM as oracle.",
+      "steps": [
+        {
+          "from": "branch-upstream",
+          "to": "branch-ggmpeg",
+          "label": "branch latest baseline",
+          "passes": {
+            "git": [
+              "ffmpeg-main/latest",
+              "intrinsic/llvm-implementations"
+            ]
+          }
+        },
+        {
+          "from": "nasm-oracle",
+          "to": "libavcodec",
+          "label": "identify algorithm + oracle symbol",
+          "passes": {
+            "evidence": [
+              "x86inc cglobal",
+              "DSP init dispatch",
+              "checkasm coverage"
+            ]
+          }
+        },
+        {
+          "from": "libavcodec",
+          "to": "llvm-codegen",
+          "label": "R0/R1/R2/R2.5 lowering attempt",
+          "passes": {
+            "implementation": [
+              "shaped C",
+              "target attributes",
+              "SIMD intrinsics",
+              "ISA fences"
+            ]
+          }
+        },
+        {
+          "from": "llvm-codegen",
+          "to": "libavcodec",
+          "label": "replacement symbol + dispatch candidate",
+          "passes": {
+            "symbols": [
+              "*_intrinsics",
+              "R5_PICK_DEFERRED / R5_PICK_INTRINSIC"
+            ]
+          }
+        },
+        {
+          "from": "libavcodec",
+          "to": "tests-checkasm",
+          "label": "focused parity + bench",
+          "passes": {
+            "checks": [
+              "edge cases",
+              "same-tier cycles",
+              "ISA containment"
+            ]
+          }
+        },
+        {
+          "from": "tests-checkasm",
+          "to": "bench-artifacts",
+          "label": "record route decision",
+          "passes": {
+            "artifacts": [
+              "bench snapshot",
+              "objdump review",
+              "gap doc if needed"
+            ]
+          }
+        },
+        {
+          "from": "bench-artifacts",
+          "to": "docs-hermes",
+          "label": "update durable campaign notes",
+          "passes": {
+            "docs": [
+              "backlog row",
+              "library status",
+              "LLVM gap"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "compare-main",
+      "label": "Test branch against main",
+      "description": "Keeps latest upstream master as comparison baseline, then validates the intrinsic/LLVM branch through focused and broad gates.",
+      "steps": [
+        {
+          "from": "branch-upstream",
+          "to": "tests-checkasm",
+          "label": "baseline build/checkasm",
+          "passes": {
+            "baseline": [
+              "upstream/master",
+              "ffmpeg-main/latest"
+            ]
+          }
+        },
+        {
+          "from": "branch-ggmpeg",
+          "to": "tests-checkasm",
+          "label": "branch build/checkasm",
+          "passes": {
+            "candidate": [
+              "ggmpeg",
+              "intrinsic/llvm-implementations"
+            ]
+          }
+        },
+        {
+          "from": "tests-checkasm",
+          "to": "bench-artifacts",
+          "label": "compare NASM vs intrinsic + branch vs main",
+          "passes": {
+            "metrics": [
+              "median cycles",
+              "worst delta",
+              "functional parity"
+            ]
+          }
+        },
+        {
+          "from": "branch-ggmpeg",
+          "to": "fate",
+          "label": "broader FATE smoke before push",
+          "passes": {
+            "scope": [
+              "changed libs",
+              "CPU feature matrix when needed"
+            ]
+          }
+        },
+        {
+          "from": "bench-artifacts",
+          "to": "docs-hermes",
+          "label": "publish decision trail",
+          "passes": {
+            "result": [
+              "route",
+              "defer",
+              "R5 fallback",
+              "keep NASM"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "no-x86asm-audit",
+      "label": "No-x86asm coverage audit",
+      "description": "Proves migrated code is not accidentally hidden behind HAVE_X86ASM and remains usable without NASM.",
+      "steps": [
+        {
+          "from": "branch-ggmpeg",
+          "to": "no-x86asm-build",
+          "label": "configure --disable-x86asm",
+          "passes": {
+            "config": [
+              "ARCH_X86 path",
+              "intrinsic objects in OBJS-*"
+            ]
+          }
+        },
+        {
+          "from": "no-x86asm-build",
+          "to": "libavcodec",
+          "label": "compile init + intrinsic objects",
+          "passes": {
+            "objects": [
+              "*_init.o",
+              "*_intrinsics.o"
+            ]
+          }
+        },
+        {
+          "from": "no-x86asm-build",
+          "to": "tests-checkasm",
+          "label": "run focused checkasm in no-NASM lane",
+          "passes": {
+            "checks": [
+              "dispatch reaches intrinsic",
+              "no unresolved NASM symbols"
+            ]
+          }
+        },
+        {
+          "from": "tests-checkasm",
+          "to": "docs-hermes",
+          "label": "record build coverage",
+          "passes": {
+            "docs": [
+              "slice note",
+              "inventory update"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "library-surfaces",
+      "label": "Repository surface overview",
+      "description": "Highlights major FFmpeg packages and where accelerated algorithms usually flow.",
+      "steps": [
+        {
+          "from": "libavutil",
+          "to": "libavcodec",
+          "label": "shared CPU/memory primitives"
+        },
+        {
+          "from": "libavutil",
+          "to": "libavfilter",
+          "label": "frames, buffers, pixel/sample helpers"
+        },
+        {
+          "from": "libavcodec",
+          "to": "nasm-oracle",
+          "label": "x86 DSP oracle symbols"
+        },
+        {
+          "from": "libswscale",
+          "to": "nasm-oracle",
+          "label": "pixel conversion assembly oracles"
+        },
+        {
+          "from": "libswresample",
+          "to": "nasm-oracle",
+          "label": "audio conversion assembly oracles"
+        },
+        {
+          "from": "docs-hermes",
+          "to": "branch-ggmpeg",
+          "label": "policy constrains implementation choices"
+        }
+      ]
+    }
+  ],
+  "schema_notes": [
+    "Edit JSON in the panel or drop a .json file onto the canvas; Apply redraws the map.",
+    "Component x/y coordinates are SVG canvas positions.",
+    "Flow steps use from/to component ids and optional passes metadata."
+  ]
+}
